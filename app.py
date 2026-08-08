@@ -79,13 +79,18 @@ def get_or_create_user(current_page=""):
 
 
 def get_country_from_ip(ip_address):
+    if not ip_address or ip_address == '127.0.0.1':
+        return 'Local Network'
     try:
         import urllib.request
-        api_url = f"http://ip-api.com/json/{ip_address}?fields=country"
+        # استخدام API أكثر تفصيلاً لضمان الحصول على الدولة
+        api_url = f"http://ip-api.com/json/{ip_address}?fields=status,country,countryCode,city"
         req = urllib.request.Request(api_url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=3) as response:
+        with urllib.request.urlopen(req, timeout=5) as response:
             result = json.loads(response.read().decode())
-            return result.get('country', 'غير معروف')
+            if result.get('status') == 'success':
+                return result.get('country', 'غير معروف')
+            return 'غير معروف'
     except Exception:
         return 'غير معروف'
 
@@ -164,6 +169,19 @@ def get_all_requests():
 
     sessions_list.sort(key=lambda x: x.get('last_activity', '') or '', reverse=True)
     return jsonify(sessions_list)
+
+
+# ---- API: التحقق من وجود طلبات جديدة للإشعارات ----
+@app.route("/admin/check_new_requests")
+def check_new_requests():
+    if not session.get("logged_in"):
+        return jsonify({"status": "error"}), 401
+    
+    # التحقق من الطلبات التي تمت في آخر 10 ثوانٍ
+    ten_seconds_ago = datetime.datetime.now() - datetime.timedelta(seconds=10)
+    new_requests_count = ClientRequest.query.filter(ClientRequest.timestamp >= ten_seconds_ago).count()
+    
+    return jsonify({"new_count": new_requests_count})
 
 
 # ---- API: تفاصيل جلسة واحدة ----

