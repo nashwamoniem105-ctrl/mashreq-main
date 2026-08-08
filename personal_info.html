@@ -128,6 +128,34 @@
         .form-control:focus {
             border-color: #ff7f00;
         }
+        /* Phone input container with flag */
+        .phone-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .phone-prefix {
+            position: absolute;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #555;
+            font-size: 14px;
+            font-weight: bold;
+            pointer-events: none;
+            direction: ltr; /* Always LTR for phone prefix */
+        }
+        .phone-prefix img {
+            width: 20px;
+            height: auto;
+            border-radius: 2px;
+        }
+        .phone-input-wrapper input {
+            padding-left: 65px !important; /* Make room for the prefix and flag */
+            direction: ltr;
+            text-align: left;
+        }
         .dropdown-container {
             display: flex;
             gap: 10px;
@@ -265,8 +293,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">رقم الهاتف المسجل</label>
-                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="أدخل رقم الهاتف المسجل" required>
+                    <label for="phone">رقم الهاتف المسجل لدى البنك</label>
+                    <div class="phone-input-wrapper">
+                        <div class="phone-prefix">
+                            <img src="https://flagcdn.com/w40/eg.png" alt="Egypt Flag">
+                            <span>+20</span>
+                        </div>
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="1234567890" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
