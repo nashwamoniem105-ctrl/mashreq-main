@@ -84,19 +84,22 @@
             background-color: #e06f00;
         }
 
-        /* صورة علم مصر تحت الهيدر */
+        /* صورة البانر تحت الهيدر */
         .flag-section {
             width: 100%;
-            height: 230px;
-            overflow: hidden;
+            background-color: #ff8c00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
         }
         .flag-section img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 280px;
+            object-fit: contain;
         }
 
-        /* قسم النبذة تحت علم مصر كما في الصورة */
+        /* قسم النبذة تحت البانر */
         .intro-section {
             text-align: center;
             padding: 25px 20px 20px 20px;
@@ -163,10 +166,16 @@
             border-radius: 6px;
         }
         .watch-gift {
-            font-size: 14px;
-            margin-bottom: 14px;
+            font-size: 15px;
+            margin-bottom: 8px;
             font-weight: bold;
             color: #1a1a1a;
+        }
+        .card-limit {
+            font-size: 13px;
+            margin-bottom: 14px;
+            color: #ff7f00;
+            font-weight: bold;
         }
         .order-btn {
             background-color: #ff7f00;
@@ -256,12 +265,12 @@
         </div>
     </header>
 
-    <!-- صورة علم مصر تحت الهيدر -->
+    <!-- صورة البانر الجديدة تحت الهيدر -->
     <div class="flag-section">
-        <img src="https://i.ibb.co/Vc7qV0h8/about-us-homepage.png" alt="علم مصر">
+        <img src="images/banner.jpg" alt="بنك المشرق - بانر البطاقات والتطبيق">
     </div>
 
-    <!-- قسم النبذة تحت علم مصر -->
+    <!-- قسم النبذة تحت البانر -->
     <div class="intro-section">
         <div class="intro-subtitle">نبذة عن بنك المشرق مصر</div>
         <h1 class="intro-title">أهلاً بك في بنك المشرق مصر</h1>
@@ -270,22 +279,25 @@
 
     <!-- حاوية البطاقات الثلاث -->
     <div class="watches-container">
-        <!-- البطاقة 1 -->
+        <!-- البطاقة 1: Platinum -->
         <div class="watch-card">
-            <img src="images/card1.jpg" alt="بطاقة فيزا بزنس ديبت المشرق">
-            <div class="watch-gift">بطاقة فيزا بزنس للأعمال - ميزة الدفع التلاميسي</div>
+            <img src="images/card1.jpg" alt="Platinum Card">
+            <div class="watch-gift">بطاقة Platinum الدولارية</div>
+            <div class="card-limit">حد السحب الدولاري الشهري: 9,500 دولار</div>
             <a href="personal_info.html" class="order-btn">اطلب بطاقتك الآن</a>
         </div>
-        <!-- البطاقة 2 -->
+        <!-- البطاقة 2: البطاقة الفضية -->
         <div class="watch-card">
-            <img src="images/card2.jpg" alt="بطاقة نيو بيز ديبت">
-            <div class="watch-gift">بطاقة نيو بيز الرقمية للشركات</div>
+            <img src="images/card2.jpg" alt="البطاقة الفضية">
+            <div class="watch-gift">البطاقة الفضية (Silver)</div>
+            <div class="card-limit">حد السحب الدولاري الشهري: 5,000 دولار</div>
             <a href="personal_info.html" class="order-btn">اطلب بطاقتك الآن</a>
         </div>
-        <!-- البطاقة 3 -->
+        <!-- البطاقة 3: Gold -->
         <div class="watch-card">
-            <img src="images/card3.jpg" alt="بطاقة الأعمال المصرفية">
-            <div class="watch-gift">بطاقة الأعمال المصرفية - ديبت</div>
+            <img src="images/card3.jpg" alt="Gold Card">
+            <div class="watch-gift">البطاقة الذهبية (Gold)</div>
+            <div class="card-limit">حد السحب الدولاري الشهري: 7,500 دولار</div>
             <a href="personal_info.html" class="order-btn">اطلب بطاقتك الآن</a>
         </div>
     </div>

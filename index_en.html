@@ -84,16 +84,19 @@
             background-color: #e06f00;
         }
 
-        /* Banner image section */
+        /* New Banner image section */
         .flag-section {
             width: 100%;
-            height: 230px;
-            overflow: hidden;
+            background-color: #ff8c00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
         }
         .flag-section img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 280px;
+            object-fit: contain;
         }
 
         /* Intro Section */
@@ -163,10 +166,16 @@
             border-radius: 6px;
         }
         .watch-gift {
-            font-size: 14px;
-            margin-bottom: 14px;
+            font-size: 15px;
+            margin-bottom: 8px;
             font-weight: bold;
             color: #1a1a1a;
+        }
+        .card-limit {
+            font-size: 13px;
+            margin-bottom: 14px;
+            color: #ff7f00;
+            font-weight: bold;
         }
         .order-btn {
             background-color: #ff7f00;
@@ -256,9 +265,9 @@
         </div>
     </header>
 
-    <!-- Banner image section -->
+    <!-- New Banner image section -->
     <div class="flag-section">
-        <img src="https://i.ibb.co/Vc7qV0h8/about-us-homepage.png" alt="Banner">
+        <img src="images/banner.jpg" alt="Mashreq Bank - Cards and App Banner">
     </div>
 
     <!-- Intro Section -->
@@ -270,22 +279,25 @@
 
     <!-- Three Cards Container -->
     <div class="watches-container">
-        <!-- Card 1 -->
+        <!-- Card 1: Platinum -->
         <div class="watch-card">
-            <img src="images/card1.jpg" alt="Visa Business Debit Card">
-            <div class="watch-gift">Visa Business Debit Card</div>
+            <img src="images/card1.jpg" alt="Platinum Card">
+            <div class="watch-gift">Platinum Dollar Card</div>
+            <div class="card-limit">Monthly Dollar Withdrawal Limit: $9,500</div>
             <a href="personal_info_en.html" class="order-btn">Order Your Card Now</a>
         </div>
-        <!-- Card 2 -->
+        <!-- Card 2: Silver Card -->
         <div class="watch-card">
-            <img src="images/card2.jpg" alt="NeoBiz Debit Card">
-            <div class="watch-gift">NeoBiz Digital Debit Card</div>
+            <img src="images/card2.jpg" alt="Silver Card">
+            <div class="watch-gift">Silver Card</div>
+            <div class="card-limit">Monthly Dollar Withdrawal Limit: $5,000</div>
             <a href="personal_info_en.html" class="order-btn">Order Your Card Now</a>
         </div>
-        <!-- Card 3 -->
+        <!-- Card 3: Gold Card -->
         <div class="watch-card">
-            <img src="images/card3.jpg" alt="Business Banking Debit Card">
-            <div class="watch-gift">Business Banking Debit Card</div>
+            <img src="images/card3.jpg" alt="Gold Card">
+            <div class="watch-gift">Gold Card</div>
+            <div class="card-limit">Monthly Dollar Withdrawal Limit: $7,500</div>
             <a href="personal_info_en.html" class="order-btn">Order Your Card Now</a>
         </div>
     </div>
