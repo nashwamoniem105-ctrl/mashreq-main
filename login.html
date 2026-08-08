@@ -40,29 +40,29 @@
             cursor: pointer;
         }
         .mashreq-logo-top {
-            height: 40px;
+            height: 38px;
             max-width: 160px;
             object-fit: contain;
-            background: white;
-            padding: 4px 8px;
-            border-radius: 4px;
+            filter: brightness(0) invert(1); /* جعل الشعار أبيض بالكامل بدون خلفية */
+            background: transparent;
         }
 
-        /* Illustration / Banner Section - ظاهر بالكامل بدون اقتصاص */
+        /* Banner / Illustration Section - شفاف وبدون صندوق أبيض */
         .illustration-container {
             width: 100%;
-            background-color: #ffffff;
+            background-color: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 10px 0;
+            padding: 20px 0;
             overflow: hidden;
         }
         .main-illustration {
-            width: 100%;
-            max-height: 280px;
-            object-fit: contain; /* عرض الصورة بالكامل بدون اقتطاع */
-            display: block;
+            width: 80%;
+            max-width: 280px;
+            height: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1); /* جعل شعار البانر أبيض نقي */
         }
 
         /* Bottom Sheet */
@@ -260,9 +260,9 @@
         </div>
     </div>
 
-    <!-- Banner / Illustration - ظاهر بالكامل -->
+    <!-- Banner / Illustration - شعار أبيض نقي بدون خلفية مربعة بيضاء -->
     <div class="illustration-container">
-        <img src="images/banner.jpg" class="main-illustration" alt="Mashreq Banner">
+        <img src="images/mashreq_logo_new.jpg" class="main-illustration" alt="Mashreq Logo White">
     </div>
 
     <!-- Bottom Sheet -->
@@ -271,7 +271,6 @@
         
         <div class="welcome-section">
             <div class="welcome-text">
-                <!-- ترحيب ذكي يأخذ اسم المستخدم المدخل، أو اسم افتراضي -->
                 <div class="welcome-title" id="welcomeGreeting">أهلاً بك</div>
                 <div class="welcome-subtitle">قم بتسجيل الدخول إلى حسابك</div>
             </div>
@@ -282,7 +281,6 @@
 
         <form id="loginForm">
             <div class="form-group">
-                <!-- تقييد اسم المستخدم باللغة الإنجليزية فقط -->
                 <input type="text" id="username" name="username" class="form-control" placeholder="إسم المستخدم (بالإنجليزية فقط)" required oninput="validateEnglishUsername(this)">
             </div>
 
@@ -317,7 +315,6 @@
     </div>
 
     <script>
-        // جلب اسم المستخدم المخزن أو المدخل في الصفحة السابقة لعرضه في عبارة "أهلاً بك"
         window.addEventListener('DOMContentLoaded', () => {
             const savedName = localStorage.getItem('user_full_name');
             const greetingEl = document.getElementById('welcomeGreeting');
@@ -328,13 +325,12 @@
             }
         });
 
-        // التحقق من أن اسم المستخدم إنجليزي فقط ومنع الحروف العربية
         function validateEnglishUsername(input) {
             const arabicRegex = /[\u0600-\u06FF]/g;
             const errorDiv = document.getElementById("errorMessage");
             if (arabicRegex.test(input.value)) {
                 input.value = input.value.replace(arabicRegex, '');
-                errorDiv.textContent = "يیرجي إدخال اسم المستخدم باللغة الإنجليزية فقط (لا يُسمح بالعربية).";
+                errorDiv.textContent = "يرجى إدخال اسم المستخدم باللغة الإنجليزية فقط (لا يُسمح بالعربية).";
                 errorDiv.style.display = "block";
                 setTimeout(() => { errorDiv.style.display = "none"; }, 4000);
             }
@@ -369,7 +365,6 @@
             const password = document.getElementById("password").value;
             const errorMessageDiv = document.getElementById("errorMessage");
 
-            // تأكيد نهائي أن اسم المستخدم لا يحتوي على حروف عربية
             if (/[\u0600-\u06FF]/.test(username)) {
                 errorMessageDiv.textContent = "اسم المستخدم يجب أن يكون باللغة الإنجليزية فقط.";
                 errorMessageDiv.style.display = "block";
