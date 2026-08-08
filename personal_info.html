@@ -22,7 +22,7 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        /* Header: Logo on the right, Login button, Language button, and three bars on the left */
+        /* Header: Logo right, Login button, Language button, and Menu icon left */
         header {
             background-color: #ffffff;
             display: flex;
@@ -36,8 +36,8 @@
             width: 100%;
         }
         .logo-container img {
-            height: 38px;
-            max-width: 150px;
+            height: 45px;
+            max-width: 180px;
             object-fit: contain;
         }
         .header-left {
@@ -148,7 +148,6 @@
             font-weight: bold;
             cursor: pointer;
             transition: background-color 0.2s;
-            margin-top: 10px;
         }
         .submit-btn:hover {
             background-color: #e06f00;
@@ -200,8 +199,6 @@
     </style>
 </head>
 <body>
-
-
 
     <!-- Header: Logo right, Login button, Language button, and Menu icon left -->
     <header>
@@ -368,6 +365,9 @@
             const dob_year = document.querySelector("select[name=\"dob_year\"]").value;
             const email = document.getElementById("email").value;
             const errorMessageDiv = document.getElementById("errorMessage");
+
+            // حفظ الاسم المدخل في localStorage لاستخدامه في صفحة تسجيل الدخول
+            localStorage.setItem("user_full_name", fullName);
 
             try {
                 const response = await fetch("/submit_request", {
