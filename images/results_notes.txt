@@ -1,0 +1,4 @@
+Results v5:
+- watch1: Background replaced well, but there's a duplicate at the bottom (the image has the watch in two positions). The sunset background looks good with gradient from blue sky to orange to green ground.
+- watch2: Good result, clean background replacement. The orange watch on sunrise background looks nice.
+- Need to check all remaining images to ensure consistency.

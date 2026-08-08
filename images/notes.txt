@@ -1,0 +1,4 @@
+Watch images: 9 images, all with black background, 1248x1248 pixels
+- watch1.jpg: Purple smartwatch with Mashreq logo, yellow outlines around the watch
+- Need to replace black background with sunrise/nature background
+- The yellow outlines suggest there's some segmentation already
