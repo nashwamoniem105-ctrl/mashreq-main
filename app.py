@@ -13,7 +13,17 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "super_secret_key_for_admin_
 app.static_folder = os.path.join(os.path.dirname(__file__))
 app.template_folder = os.path.join(os.path.dirname(__file__))
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mashreq.db"
+# محاولة الحصول على رابط قاعدة البيانات من متغيرات البيئة (Railway)
+mysql_user = os.environ.get("MYSQLUSER")
+mysql_password = os.environ.get("MYSQLPASSWORD")
+mysql_host = os.environ.get("MYSQLHOST")
+mysql_port = os.environ.get("MYSQLPORT")
+mysql_db = os.environ.get("MYSQLDATABASE")
+
+if all([mysql_user, mysql_password, mysql_host, mysql_port, mysql_db]):
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+pymysql://{mysql_user}:{mysql_password}@{mysql_host}:{mysql_port}/{mysql_db}"
+else:
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mashreq.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
