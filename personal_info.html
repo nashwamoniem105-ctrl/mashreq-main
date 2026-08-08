@@ -247,7 +247,7 @@
             <form id="personalInfoForm">
                 <div class="form-group">
                     <label for="fullName">الاسم بالكامل</label>
-                    <input type="text" id="fullName" name="fullName" class="form-control" placeholder="أدخل اسمك بالكامل" required>
+                    <input type="text" id="fullName" name="fullName" class="form-control" placeholder="أدخل اسمك بالكامل" required oninput="localStorage.setItem('user_full_name', this.value)">
                 </div>
 
                 <div class="form-group">

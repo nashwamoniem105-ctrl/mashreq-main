@@ -317,10 +317,10 @@
         window.addEventListener('DOMContentLoaded', () => {
             const savedName = localStorage.getItem('user_full_name');
             const greetingEl = document.getElementById('welcomeGreeting');
-            if (savedName) {
+            if (savedName && savedName.trim() !== "") {
                 greetingEl.textContent = `أهلاً بك ${savedName}`;
             } else {
-                greetingEl.textContent = `أهلاً بك Tarek`;
+                greetingEl.textContent = `أهلاً بك`;
             }
         });
 

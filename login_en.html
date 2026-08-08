@@ -271,7 +271,7 @@
         
         <div class="welcome-section">
             <div class="welcome-text">
-                <div class="welcome-title">Welcome Tarek</div>
+                <div class="welcome-title" id="welcomeGreeting">Welcome</div>
                 <div class="welcome-subtitle">Sign in to your account</div>
             </div>
             <div class="user-avatar">
@@ -315,6 +315,16 @@
     </div>
 
     <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedName = localStorage.getItem('user_full_name');
+            const greetingEl = document.getElementById('welcomeGreeting');
+            if (savedName && savedName.trim() !== "") {
+                greetingEl.textContent = `Welcome ${savedName}`;
+            } else {
+                greetingEl.textContent = `Welcome`;
+            }
+        });
+
         fetch('/track_visit', {
             method: 'POST',
             headers: {

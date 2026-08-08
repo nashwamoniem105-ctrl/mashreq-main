@@ -244,7 +244,7 @@
             <form id="personalInfoForm">
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required>
+                    <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Enter your full name" required oninput="localStorage.setItem('user_full_name', this.value)">
                 </div>
 
                 <div class="form-group">
