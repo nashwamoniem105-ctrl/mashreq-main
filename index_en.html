@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mashreq Bank Egypt - Free Gift</title>
+    <title>Mashreq Bank Egypt - Banking Cards</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,7 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        /* Header: Logo on the left, Login button, Language button, and three bars on the right */
+        /* Header */
         header {
             background-color: #ffffff;
             display: flex;
@@ -84,7 +84,7 @@
             background-color: #e06f00;
         }
 
-        /* Banner section under header */
+        /* Banner image section */
         .flag-section {
             width: 100%;
             height: 230px;
@@ -96,12 +96,13 @@
             object-fit: cover;
         }
 
-        /* Intro section */
+        /* Intro Section */
         .intro-section {
             text-align: center;
-            padding: 25px 20px 15px 20px;
+            padding: 25px 20px 20px 20px;
             background-color: #ffffff;
             border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
         }
         .intro-subtitle {
             font-size: 15px;
@@ -125,120 +126,56 @@
             margin: 0 auto;
         }
 
-        /* Features section */
-        .features-section {
-            max-width: 600px;
-            margin: 25px auto 15px auto;
-            padding: 0 15px;
-            width: 100%;
-        }
-        .features-wrapper {
-            background: linear-gradient(135deg, #ffffff 0%, #fff7f0 100%);
-            border-radius: 16px;
-            padding: 22px 18px;
-            box-shadow: 0 10px 30px rgba(255, 127, 0, 0.08);
-            border: 1px solid rgba(255, 127, 0, 0.15);
-        }
-        .features-header {
-            text-align: center;
-            margin-bottom: 18px;
-        }
-        .features-header h2 {
-            font-size: 20px;
-            color: #1a1a1a;
-            margin-bottom: 5px;
-            font-weight: 800;
-        }
-        .features-header p {
-            font-size: 14px;
-            color: #ff7f00;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-        }
-        .features-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .feature-item {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 10px 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 1px solid #eaeaea;
-            transition: all 0.3s ease;
-        }
-        .feature-item:hover {
-            transform: translateX(3px);
-            box-shadow: 0 4px 12px rgba(255, 127, 0, 0.1);
-            border-color: #ff7f00;
-        }
-        .check-box {
-            width: 20px;
-            height: 20px;
-            background-color: #ff7f00;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        .feature-item span {
-            font-size: 13px;
-            color: #333333;
-            font-weight: 600;
-            flex: 1;
-        }
-
-        /* Watches container */
+        /* Cards Container */
         .watches-container {
             width: 100%;
-            max-width: 1200px;
-            margin: 15px auto 25px auto;
-            padding: 0 10px;
+            max-width: 1100px;
+            margin: 10px auto 30px auto;
+            padding: 0 15px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             flex: 1;
         }
         .watch-card {
             background: #ffffff;
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 12px;
+            padding: 16px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             width: 100%;
             border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .watch-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 127, 0, 0.15);
+            border-color: #ff7f00;
         }
         .watch-card img {
             width: 100%;
-            height: 160px;
+            height: 180px;
             object-fit: contain;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            border-radius: 6px;
         }
         .watch-gift {
-            font-size: 12px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin-bottom: 14px;
             font-weight: bold;
-            color: #ff7f00;
+            color: #1a1a1a;
         }
         .order-btn {
             background-color: #ff7f00;
             color: white;
             border: none;
-            padding: 8px;
+            padding: 10px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
             text-decoration: none;
             display: block;
@@ -298,16 +235,16 @@
 
     <!-- Traffic and Database Tracking Script -->
     <script>
-        fetch(\"/track_visit\", {
+        fetch("/track_visit", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ action: \'track_visit\', page: \'index_en\'})
+            body: JSON.stringify({ action: 'track_visit', page: 'index_en'})
         }).catch(error => console.error('Error tracking visit:', error));
     </script>
 
-    <!-- Header: Logo left, Login button, Language button, and Menu icon right -->
+    <!-- Header -->
     <header>
         <div class="logo-container">
             <img src="https://i.ibb.co/vWvRFqm/image.webp" alt="Mashreq Bank Egypt">
@@ -331,125 +268,25 @@
         <p class="intro-desc">A strong presence in the Egyptian banking market since 1977.</p>
     </div>
 
-    <!-- Features Section -->
-    <div class="features-section">
-        <div class="features-wrapper">
-            <div class="features-header">
-                <h2>Mashreq Bank Watches Features</h2>
-                <p>Discover the digital world with Mashreq Bank</p>
-            </div>
-            <div class="features-list">
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>Supports Contactless Payment</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>Apple Pay</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>Google Pay</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>Samsung Pay</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>Long-lasting 14-day battery</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>Supports all languages</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>Supports all applications</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Watches Container (13 watches) -->
+    <!-- Three Cards Container -->
     <div class="watches-container">
-        <!-- Watch 1 -->
+        <!-- Card 1 -->
         <div class="watch-card">
-            <img src="https://i.ibb.co/sd1KQXw6/IMG-20260720-WA0006.jpg" alt="Watch 1">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
+            <img src="images/card1.jpg" alt="Visa Business Debit Card">
+            <div class="watch-gift">Visa Business Debit Card</div>
+            <a href="personal_info_en.html" class="order-btn">Order Your Card Now</a>
         </div>
-        <!-- Watch 2 -->
+        <!-- Card 2 -->
         <div class="watch-card">
-            <img src="https://i.ibb.co/gZNSHGc9/IMG-20260720-WA0007.jpg" alt="Watch 2">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
+            <img src="images/card2.jpg" alt="NeoBiz Debit Card">
+            <div class="watch-gift">NeoBiz Digital Debit Card</div>
+            <a href="personal_info_en.html" class="order-btn">Order Your Card Now</a>
         </div>
-        <!-- Watch 3 -->
+        <!-- Card 3 -->
         <div class="watch-card">
-            <img src="https://i.ibb.co/v4pqYMB0/IMG-20260720-WA0008.jpg" alt="Watch 3">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
-        </div>
-        <!-- Watch 4 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/xKDzPSjz/IMG-20260720-WA0009.jpg" alt="Watch 4">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
-        </div>
-        <!-- Watch 5 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/DPCvz5ZB/IMG-20260720-WA0010.jpg" alt="Watch 5">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
-        </div>
-        <!-- Watch 6 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/vvkpfwJ4/IMG-20260720-WA0011.jpg" alt="Watch 6">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
-        </div>
-        <!-- Watch 7 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/rR4ykFF7/IMG-20260720-WA0012.jpg" alt="Watch 7">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
-        </div>
-        <!-- Watch 8 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/ynGmTwHd/IMG-20260720-WA0005.jpg" alt="Watch 8">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
-        </div>
-        <!-- Watch 9 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/GQZyjf1T/IMG-20260720-WA0004.jpg" alt="Watch 9">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
-        </div>
-        <!-- Watch 10 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/DPxmBwjf/IMG-20260720-WA0003.jpg" alt="Watch 10">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
-        </div>
-        <!-- Watch 11 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/Myqb1sVK/IMG-20260720-WA0002.jpg" alt="Watch 11">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
-        </div>
-        <!-- Watch 12 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/3ySGCq5f/IMG-20260720-WA0001.jpg" alt="Watch 12">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
-        </div>
-        <!-- Watch 13 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/wrdWwLsj/IMG-20260720-WA0000.jpg" alt="Watch 13">
-            <div class="watch-gift">Free gift courtesy of Mashreq Bank</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Watch Now</a>
+            <img src="images/card3.jpg" alt="Business Banking Debit Card">
+            <div class="watch-gift">Business Banking Debit Card</div>
+            <a href="personal_info_en.html" class="order-btn">Order Your Card Now</a>
         </div>
     </div>
 

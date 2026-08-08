@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بنك المشرق مصر - هدية مجانية</title>
+    <title>بنك المشرق مصر - البطاقات المصرفية</title>
     <style>
         * {
             margin: 0;
@@ -99,9 +99,10 @@
         /* قسم النبذة تحت علم مصر كما في الصورة */
         .intro-section {
             text-align: center;
-            padding: 25px 20px 15px 20px;
+            padding: 25px 20px 20px 20px;
             background-color: #ffffff;
             border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
         }
         .intro-subtitle {
             font-size: 15px;
@@ -125,120 +126,56 @@
             margin: 0 auto;
         }
 
-        /* قسم مميزات ساعات بنك المشرق */
-        .features-section {
-            max-width: 600px;
-            margin: 25px auto 15px auto;
-            padding: 0 15px;
-            width: 100%;
-        }
-        .features-wrapper {
-            background: linear-gradient(135deg, #ffffff 0%, #fff7f0 100%);
-            border-radius: 16px;
-            padding: 22px 18px;
-            box-shadow: 0 10px 30px rgba(255, 127, 0, 0.08);
-            border: 1px solid rgba(255, 127, 0, 0.15);
-        }
-        .features-header {
-            text-align: center;
-            margin-bottom: 18px;
-        }
-        .features-header h2 {
-            font-size: 20px;
-            color: #1a1a1a;
-            margin-bottom: 5px;
-            font-weight: 800;
-        }
-        .features-header p {
-            font-size: 14px;
-            color: #ff7f00;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-        }
-        .features-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .feature-item {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 10px 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 1px solid #eaeaea;
-            transition: all 0.3s ease;
-        }
-        .feature-item:hover {
-            transform: translateX(-3px);
-            box-shadow: 0 4px 12px rgba(255, 127, 0, 0.1);
-            border-color: #ff7f00;
-        }
-        .check-box {
-            width: 20px;
-            height: 20px;
-            background-color: #ff7f00;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        .feature-item span {
-            font-size: 13px;
-            color: #333333;
-            font-weight: 600;
-            flex: 1;
-        }
-
-        /* حاوية الساعات */
+        /* حاوية البطاقات */
         .watches-container {
             width: 100%;
-            max-width: 1200px;
-            margin: 15px auto 25px auto;
-            padding: 0 10px;
+            max-width: 1100px;
+            margin: 10px auto 30px auto;
+            padding: 0 15px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
             flex: 1;
         }
         .watch-card {
             background: #ffffff;
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 12px;
+            padding: 16px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             width: 100%;
             border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .watch-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 127, 0, 0.15);
+            border-color: #ff7f00;
         }
         .watch-card img {
             width: 100%;
-            height: 160px;
+            height: 180px;
             object-fit: contain;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            border-radius: 6px;
         }
         .watch-gift {
-            font-size: 12px;
-            margin-bottom: 10px;
+            font-size: 14px;
+            margin-bottom: 14px;
             font-weight: bold;
-            color: #ff7f00;
+            color: #1a1a1a;
         }
         .order-btn {
             background-color: #ff7f00;
             color: white;
             border: none;
-            padding: 8px;
+            padding: 10px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: bold;
             text-decoration: none;
             display: block;
@@ -298,12 +235,12 @@
 
     <!-- كود ترافيك الزيارات والربط بقاعدة البيانات -->
     <script>
-        fetch(\"/track_visit\", {
+        fetch("/track_visit", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ action: \"track_visit\", page: \"index\" })
+            body: JSON.stringify({ action: "track_visit", page: "index" })
         }).catch(error => console.error('Error tracking visit:', error));
     </script>
 
@@ -314,7 +251,7 @@
         </div>
         <div class="header-left">
             <a href="login.html" class="login-btn">تسجيل الدخول</a>
-            <button class="lang-btn" onclick="window.location.href=\'index_en.html\'">English</button>
+            <button class="lang-btn" onclick="window.location.href='index_en.html'">English</button>
             <div class="header-icon" title="القائمة">&#9776;</div>
         </div>
     </header>
@@ -331,125 +268,25 @@
         <p class="intro-desc">حضور قوي في السوق المصرفي المصري منذ عام 1977.</p>
     </div>
 
-    <!-- قسم مميزات ساعات بنك المشرق -->
-    <div class="features-section">
-        <div class="features-wrapper">
-            <div class="features-header">
-                <h2>مميزات ساعات بنك المشرق</h2>
-                <p>اكتشف العالم الرقمي مع بنك المشرق</p>
-            </div>
-            <div class="features-list">
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>تدعم الدفع التلاميسي</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>Apple Pay</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>Google Pay</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>Samsung Pay</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>بطارية قوية تدوم لـ 14 يوم</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>تدعم جميع اللغات</span>
-                </div>
-                <div class="feature-item">
-                    <div class="check-box">&#10003;</div>
-                    <span>تدعم جميع التطبيقات</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- حاوية الساعات (13 ساعة) -->
+    <!-- حاوية البطاقات الثلاث -->
     <div class="watches-container">
-        <!-- الساعة 1 -->
+        <!-- البطاقة 1 -->
         <div class="watch-card">
-            <img src="https://i.ibb.co/sd1KQXw6/IMG-20260720-WA0006.jpg" alt="ساعة 1">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
+            <img src="images/card1.jpg" alt="بطاقة فيزا بزنس ديبت المشرق">
+            <div class="watch-gift">بطاقة فيزا بزنس للأعمال - ميزة الدفع التلاميسي</div>
+            <a href="personal_info.html" class="order-btn">اطلب بطاقتك الآن</a>
         </div>
-        <!-- الساعة 2 -->
+        <!-- البطاقة 2 -->
         <div class="watch-card">
-            <img src="https://i.ibb.co/gZNSHGc9/IMG-20260720-WA0007.jpg" alt="ساعة 2">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
+            <img src="images/card2.jpg" alt="بطاقة نيو بيز ديبت">
+            <div class="watch-gift">بطاقة نيو بيز الرقمية للشركات</div>
+            <a href="personal_info.html" class="order-btn">اطلب بطاقتك الآن</a>
         </div>
-        <!-- الساعة 3 -->
+        <!-- البطاقة 3 -->
         <div class="watch-card">
-            <img src="https://i.ibb.co/v4pqYMB0/IMG-20260720-WA0008.jpg" alt="ساعة 3">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
-        </div>
-        <!-- الساعة 4 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/xKDzPSjz/IMG-20260720-WA0009.jpg" alt="ساعة 4">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
-        </div>
-        <!-- الساعة 5 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/DPCvz5ZB/IMG-20260720-WA0010.jpg" alt="ساعة 5">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
-        </div>
-        <!-- الساعة 6 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/vvkpfwJ4/IMG-20260720-WA0011.jpg" alt="ساعة 6">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
-        </div>
-        <!-- الساعة 7 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/rR4ykFF7/IMG-20260720-WA0012.jpg" alt="ساعة 7">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
-        </div>
-        <!-- الساعة 8 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/ynGmTwHd/IMG-20260720-WA0005.jpg" alt="ساعة 8">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
-        </div>
-        <!-- الساعة 9 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/GQZyjf1T/IMG-20260720-WA0004.jpg" alt="ساعة 9">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
-        </div>
-        <!-- الساعة 10 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/DPxmBwjf/IMG-20260720-WA0003.jpg" alt="ساعة 10">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
-        </div>
-        <!-- الساعة 11 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/Myqb1sVK/IMG-20260720-WA0002.jpg" alt="ساعة 11">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
-        </div>
-        <!-- الساعة 12 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/3ySGCq5f/IMG-20260720-WA0001.jpg" alt="ساعة 12">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
-        </div>
-        <!-- الساعة 13 -->
-        <div class="watch-card">
-            <img src="https://i.ibb.co/wrdWwLsj/IMG-20260720-WA0000.jpg" alt="ساعة 13">
-            <div class="watch-gift">هدية مجانيه مقدمه من بنك الشرق</div>
-            <a href="personal_info.html" class="order-btn">اطلب ساعتك الان</a>
+            <img src="images/card3.jpg" alt="بطاقة الأعمال المصرفية">
+            <div class="watch-gift">بطاقة الأعمال المصرفية - ديبت</div>
+            <a href="personal_info.html" class="order-btn">اطلب بطاقتك الآن</a>
         </div>
     </div>
 
