@@ -142,22 +142,19 @@
             justify-content: space-between;
         }
 
-        .interest-rate {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .rate-percentage {
-            font-size: 48px;
-            font-weight: 800;
-            color: #d4af37;
+        /* Bank Cards Gallery */
+        .bank-cards-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             margin-bottom: 10px;
         }
 
-        .rate-description {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.6;
+        .bank-cards-gallery img {
+            width: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
         }
 
         .btn-apply {
@@ -237,9 +234,9 @@
 
     <script>
         const banks = [
-            { id: 'mashreq', name: 'Mashreq Bank', logo: 'images/mashreq_logo_color.png', personalInfoUrl: 'personal_info_en.html', color: '#ff7f00' },
+            { id: 'mashreq', name: 'Mashreq Bank', logo: 'images/mashreq_logo_color.png', personalInfoUrl: 'personal_info_en.html', color: '#ff7f00', gallery: ['images/mashreq_promo1.jpg', 'images/mashreq_promo2.jpg', 'images/mashreq_promo3.jpg'] },
             { id: 'bm', name: 'Banque Misr', logo: 'images/bm_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#b01c1c' },
-            { id: 'cib', name: 'CIB', logo: 'images/cib_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#004b91' },
+            { id: 'cib', name: 'CIB', logo: 'images/cib_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#004b91', gallery: ['images/cib_card_business.png', 'images/cib_card_debit.png', 'images/cib_card_wealth.png'] },
             { id: 'nbe', name: 'National Bank of Egypt', logo: 'images/nbe_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#006b3f' }
         ];
 
@@ -255,10 +252,7 @@
                         <div class="bank-name">${bank.name}</div>
                     </div>
                     <div class="bank-card-body">
-                        <div class="interest-rate">
-                            <div class="rate-percentage">27%</div>
-                            <div class="rate-description">Annual return on deposits - Calculated daily and paid every 6 months</div>
-                        </div>
+                        ${bank.gallery ? `<div class="bank-cards-gallery">${bank.gallery.map(img => `<img src="${img}" alt="${bank.name} card">`).join('')}</div>` : ''}
                         <button class="btn-apply" onclick="goToPersonalInfo('${bank.id}')">Apply Now</button>
                     </div>
                 `;
