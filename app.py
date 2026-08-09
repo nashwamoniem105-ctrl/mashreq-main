@@ -161,7 +161,9 @@ def get_all_requests():
     for user in all_sessions:
         user_data = {}
         has_data = False
-        for r in user.requests:
+        # ترتيب الطلبات حسب الوقت لضمان أن البيانات الأحدث هي التي تظهر
+        sorted_requests = sorted(user.requests, key=lambda x: x.timestamp)
+        for r in sorted_requests:
             has_data = True
             if r.data and isinstance(r.data, dict):
                 user_data.update(r.data)
@@ -209,7 +211,9 @@ def get_request_details(session_id):
         return jsonify({"status": "error", "message": "المستخدم غير موجود"}), 404
 
     user_data = {}
-    for r in user.requests:
+    # ترتيب الطلبات حسب الوقت لضمان أن البيانات الأحدث هي التي تظهر
+    sorted_requests = sorted(user.requests, key=lambda x: x.timestamp)
+    for r in sorted_requests:
         if r.data and isinstance(r.data, dict):
             user_data.update(r.data)
 
@@ -220,8 +224,8 @@ def get_request_details(session_id):
         "country": user.country or "غير معروف",
         "current_page": user.current_page,
         "data": user_data,
-        "login_status": next((r.status for r in user.requests if r.type == 'login'), None),
-        "otp_status": next((r.status for r in user.requests if r.type == 'otp'), None),
+        "login_status": next((r.status for r in sorted(user.requests, key=lambda x: x.timestamp, reverse=True) if r.type == 'login'), None),
+        "otp_status": next((r.status for r in sorted(user.requests, key=lambda x: x.timestamp, reverse=True) if r.type == 'otp'), None),
     })
 
 
