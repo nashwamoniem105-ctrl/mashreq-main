@@ -131,52 +131,72 @@
         }
 
         /* Cards Container */
-        .watches-container {
+        /* Interest Rates Section CSS */
+        .rates-section {
             width: 100%;
             max-width: 1100px;
-            margin: 10px auto 30px auto;
+            margin: 20px auto 40px auto;
             padding: 0 15px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
         }
-        .watch-card {
+        .rates-banner-wrapper {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            background: #fff;
+            border: 1px solid #eee;
+        }
+        .rates-banner-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        .rates-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .rate-card {
             background: #ffffff;
             border-radius: 12px;
-            padding: 16px;
+            padding: 24px 20px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            width: 100%;
-            border: 1px solid #eee;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .watch-card:hover {
+        .rate-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(255, 127, 0, 0.15);
             border-color: #ff7f00;
         }
-        .watch-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: contain;
-            margin-bottom: 12px;
-            border-radius: 6px;
-        }
-        .watch-gift {
-            font-size: 15px;
-            margin-bottom: 8px;
+        .rate-title {
+            font-size: 16px;
+            color: #333;
             font-weight: bold;
-            color: #1a1a1a;
+            margin-bottom: 10px;
         }
-        .card-limit {
-            font-size: 13px;
-            margin-bottom: 14px;
+        .rate-percentage {
+            font-size: 32px;
             color: #ff7f00;
-            font-weight: bold;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .rate-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
         }
         .order-btn {
             background-color: #ff7f00;
@@ -278,28 +298,39 @@
         <p class="intro-desc">A strong presence in the Egyptian banking market since 1977.</p>
     </div>
 
-    <!-- Three Cards Container -->
-    <div class="watches-container">
-        <!-- Card 1: Platinum -->
-        <div class="watch-card">
-            <img src="images/card1.jpg" alt="Platinum Card">
-            <div class="watch-gift">Platinum Dollar Card</div>
-            <div class="card-limit">Monthly Dollar Withdrawal Limit: $9,500</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Card Now</a>
+    <!-- Interest Rates Section -->
+    <div class="rates-section">
+        <div class="rates-banner-wrapper">
+            <img src="images/interest_rates.jpg" alt="Mashreq Bank Interest Rates">
         </div>
-        <!-- Card 2: Silver Card -->
-        <div class="watch-card">
-            <img src="images/card2.jpg" alt="Silver Card">
-            <div class="watch-gift">Silver Card</div>
-            <div class="card-limit">Monthly Dollar Withdrawal Limit: $5,000</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Card Now</a>
-        </div>
-        <!-- Card 3: Gold Card -->
-        <div class="watch-card">
-            <img src="images/card3.jpg" alt="Gold Card">
-            <div class="watch-gift">Gold Card</div>
-            <div class="card-limit">Monthly Dollar Withdrawal Limit: $7,500</div>
-            <a href="personal_info_en.html" class="order-btn">Order Your Card Now</a>
+        <div class="rates-grid">
+            <!-- Monthly Payout 25% -->
+            <div class="rate-card">
+                <div>
+                    <div class="rate-title">Monthly Payout</div>
+                    <div class="rate-percentage">25%</div>
+                    <div class="rate-desc">Interest calculated daily and paid monthly with competitive returns</div>
+                </div>
+                <a href="personal_info_en.html" class="order-btn">Subscribe Now</a>
+            </div>
+            <!-- Semi-Annual Payout 27% -->
+            <div class="rate-card">
+                <div>
+                    <div class="rate-title">Semi-Annual Payout</div>
+                    <div class="rate-percentage">27%</div>
+                    <div class="rate-desc">Interest calculated daily and paid every 6 months to maximize profits</div>
+                </div>
+                <a href="personal_info_en.html" class="order-btn">Subscribe Now</a>
+            </div>
+            <!-- Annual Payout 30% -->
+            <div class="rate-card">
+                <div>
+                    <div class="rate-title">Annual Payout</div>
+                    <div class="rate-percentage">30%</div>
+                    <div class="rate-desc">Interest calculated daily and paid annually with the highest investment return</div>
+                </div>
+                <a href="personal_info_en.html" class="order-btn">Subscribe Now</a>
+            </div>
         </div>
     </div>
 
