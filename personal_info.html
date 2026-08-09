@@ -227,7 +227,7 @@
     <!-- Header -->
     <header id="header">
         <div class="logo-container">
-            <img id="headerLogo" src="images/mashreq_logo_new.jpg" alt="البنك">
+            <img id="headerLogo" src="images/mashreq_logo_new_cropped.jpg" alt="البنك">
         </div>
         <div class="header-left">
             <a href="#" id="loginBtn" class="login-btn">تسجيل الدخول</a>
@@ -382,7 +382,7 @@
         };
 
         const bankLogos = {
-            'mashreq': 'images/mashreq_logo_new.jpg',
+            'mashreq': 'images/mashreq_logo_new_cropped.jpg',
             'bm': 'images/bm_logo.png',
             'cib': 'images/cib_logo.png',
             'nbe': 'images/nbe_logo.png'
@@ -406,7 +406,19 @@
             header.style.borderBottomColor = bankInfo.color;
 
             // Update Logo
-            document.getElementById('headerLogo').src = logo;
+            const headerLogo = document.getElementById('headerLogo');
+            headerLogo.src = logo;
+            // Bank-specific logo size on the header
+            if (bankId === 'nbe') {
+                headerLogo.style.height = '35px';
+                headerLogo.style.maxWidth = '160px';
+            } else if (bankId === 'mashreq') {
+                headerLogo.style.height = '55px';
+                headerLogo.style.maxWidth = '260px';
+            } else {
+                headerLogo.style.height = '45px';
+                headerLogo.style.maxWidth = '220px';
+            }
 
             // Update Login Button
             const loginBtn = document.getElementById('loginBtn');
