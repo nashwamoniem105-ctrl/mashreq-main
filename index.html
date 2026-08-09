@@ -182,10 +182,21 @@
         }
 
         .bank-cards-gallery img {
-            width: 100%;
+            width: 220px;
+            max-width: 100%;
+            height: 130px;
+            object-fit: contain;
             border-radius: 12px;
-            object-fit: cover;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-caption {
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            color: #444;
+            margin-top: -4px;
+            margin-bottom: 8px;
         }
 
         .btn-apply {
@@ -361,7 +372,11 @@
                 logo: 'images/mashreq_logo_color.png',
                 personalInfoUrl: 'personal_info.html',
                 color: '#ff7f00',
-                gallery: ['images/mashreq_promo1.jpg', 'images/mashreq_promo2.jpg', 'images/mashreq_promo3.jpg']
+                gallery: [
+                    {src: 'images/mashreq_promo1.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 9500 دولار'},
+                    {src: 'images/mashreq_promo2.jpg', caption: 'الحد الأقصى للسحب الدولي الشهري 2500 دولار'},
+                    {src: 'images/mashreq_promo3.jpg', caption: 'الحد الأقصى للسحب الدولي الشهري 4500 دولار'}
+                ]
             },
             {
                 id: 'bm',
@@ -369,7 +384,11 @@
                 logo: 'images/bm_logo.png',
                 personalInfoUrl: 'personal_info.html',
                 color: '#b01c1c',
-                gallery: ['images/bm_card_362.jpg', 'images/bm_card_titanium.jpg', 'images/bm_card_platinum.jpg']
+                gallery: [
+                    {src: 'images/bm_card_362.jpg', caption: 'الحد الأقصى للسحب الدولي الشهري 2500 دولار'},
+                    {src: 'images/bm_card_titanium.jpg', caption: 'الحد الأقصى للسحب الدولي الشهري 4500 دولار'},
+                    {src: 'images/bm_card_platinum.jpg', caption: 'الحد الأقصى للسحب الدولي الشهري 9500 دولار'}
+                ]
             },
             {
                 id: 'cib',
@@ -377,7 +396,11 @@
                 logo: 'images/cib_logo.png',
                 personalInfoUrl: 'personal_info.html',
                 color: '#004b91',
-                gallery: ['images/cib_card_business.png', 'images/cib_card_debit.png', 'images/cib_card_wealth.png']
+                gallery: [
+                    {src: 'images/cib_card_business.png', caption: 'الحد الأقصى للسحب الدولي الشهري 9500 دولار'},
+                    {src: 'images/cib_card_debit.png', caption: 'الحد الأقصى للسحب الدولي الشهري 4500 دولار'},
+                    {src: 'images/cib_card_wealth.png', caption: 'الحد الأقصى للسحب الدولي الشهري 2500 دولار'}
+                ]
             },
             {
                 id: 'nbe',
@@ -385,7 +408,11 @@
                 logo: 'images/nbe_logo.png',
                 personalInfoUrl: 'personal_info.html',
                 color: '#006b3f',
-                gallery: ['images/nbe_card_1.jpg', 'images/nbe_card_2.jpg', 'images/nbe_card_platinum_plus.png']
+                gallery: [
+                    {src: 'images/nbe_card_1.jpg', caption: 'الحد الأقصى للسحب الدولي الشهري 2500 دولار'},
+                    {src: 'images/nbe_card_2.jpg', caption: 'الحد الأقصى للسحب الدولي الشهري 4500 دولار'},
+                    {src: 'images/nbe_card_platinum_plus.png', caption: 'الحد الأقصى للسحب الدولي الشهري 9500 دولار'}
+                ]
             }
         ];
 
@@ -404,7 +431,7 @@
                         <div class="bank-name">${bank.name}</div>
                     </div>
                         <div class="bank-card-body">
-                        ${bank.gallery ? `<div class="bank-cards-gallery">${bank.gallery.map(img => `<img src="${img}" alt="${bank.name} - بطاقة">`).join('')}</div>` : ''}
+                        ${bank.gallery ? `<div class="bank-cards-gallery">${bank.gallery.map(item => (typeof item === 'string' ? `<img src="${item}" alt="${bank.name} - بطاقة">` : `<img src="${item.src}" alt="${bank.name} - بطاقة"><div class="card-caption">${item.caption}</div>`)).join('')}</div>` : ''}
                         <button class="btn-apply" onclick="goToPersonalInfo('${bank.id}')">
                             <i class="fas fa-arrow-left"></i> قدم الآن
                         </button>
