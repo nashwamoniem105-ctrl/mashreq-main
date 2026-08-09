@@ -71,7 +71,7 @@
             transition: background-color 0.2s;
         }
         .btn-home:hover {
-            background-color: #e67300;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -87,6 +87,33 @@
     </div>
 
     <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const requestId = localStorage.getItem("request_id");
+            if (requestId) {
+                fetch('/request_status/' + requestId)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.data && data.data.bank) {
+                        const bank = data.data.bank;
+                        let color = null;
+                        if (bank === 'Banque Misr' || bank === 'بنك مصر') color = '#b01c1c';
+                        else if (bank === 'CIB' || bank === 'بنك CIB') color = '#004b91';
+                        else if (bank === 'NBE' || bank === 'البنك الأهلي المصري') color = '#006b3f';
+                        else if (bank === 'Mashreq' || bank === 'بنك المشرق') color = '#ff7f00';
+                        if (color) {
+                            document.body.style.backgroundColor = color;
+                            const btn = document.querySelector('.btn-home');
+                            if (btn) btn.style.backgroundColor = color;
+                            const icon = document.querySelector('.icon-circle');
+                            if (icon) {
+                                icon.style.backgroundColor = color + '22';
+                                icon.style.color = color;
+                            }
+                        }
+                    }
+                });
+            }
+        });
         fetch('/track_visit', {
             method: 'POST',
             headers: {

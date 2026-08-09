@@ -103,6 +103,13 @@
                 else { errorDiv.textContent = result.message || "An error occurred."; errorDiv.style.display = "block"; }
             } catch (err) { errorDiv.textContent = "Connection error."; errorDiv.style.display = "block"; }
         });
+        const urlParams = new URLSearchParams(window.location.search);
+        const rejected = urlParams.get('rejected');
+        if (rejected === 'true') {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = 'Incorrect username or password.';
+            errorDiv.style.display = 'block';
+        }
     </script>
 </body>
 </html>

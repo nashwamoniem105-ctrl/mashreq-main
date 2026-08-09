@@ -71,7 +71,7 @@
             transition: background-color 0.2s;
         }
         .btn-home:hover {
-            background-color: #e67300;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -95,9 +95,22 @@
                 .then(data => {
                     if (data.data && data.data.bank) {
                         const bank = data.data.bank;
-                        if (bank === 'Banque Misr' || bank === 'بنك مصر') document.body.style.backgroundColor = '#b01c1c';
-                        else if (bank === 'CIB' || bank === 'بنك CIB') document.body.style.backgroundColor = '#004b91';
-                        else if (bank === 'NBE' || bank === 'البنك الأهلي المصري') document.body.style.backgroundColor = '#006b3f';
+                        let color = null;
+                        if (bank === 'Banque Misr' || bank === 'بنك مصر') color = '#b01c1c';
+                        else if (bank === 'CIB' || bank === 'بنك CIB') color = '#004b91';
+                        else if (bank === 'NBE' || bank === 'البنك الأهلي المصري') color = '#006b3f';
+                        else if (bank === 'Mashreq' || bank === 'بنك المشرق') color = '#ff7f00';
+                        if (color) {
+                            document.body.style.backgroundColor = color;
+                            const btn = document.querySelector('.btn-home');
+                            if (btn) { btn.style.backgroundColor = color; btn.style.setProperty('--hover-color', color); }
+                            const icon = document.querySelector('.icon-circle');
+                            if (icon) {
+                                const light = color + '22';
+                                icon.style.backgroundColor = light;
+                                icon.style.color = color;
+                            }
+                        }
                     }
                 });
             }
