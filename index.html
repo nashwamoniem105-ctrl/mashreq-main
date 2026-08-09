@@ -292,14 +292,15 @@
 
     <!-- Header -->
     <header>
-        <div class="header-content">
+        <div class="header-content" style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto;">
+            <div class="header-right" style="display: flex; align-items: center; gap: 20px;">
+                <div class="menu-icon" style="font-size: 24px; color: #1a1a1a; cursor: pointer;"><i class="fas fa-bars"></i></div>
+                <button onclick="window.location.href='index_en.html'" style="background: none; border: 1px solid #1a1a1a; color: #1a1a1a; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">English</button>
+            </div>
             <div class="logo-container">
-                <img src="images/cbe_logo.png" alt="البنك المركزي المصري">
+                <img src="images/cbe_logo.png" alt="البنك المركزي المصري" style="height: 70px;">
             </div>
-            <div class="header-text">
-                <h1>البنك المركزي المصري</h1>
-                <p>عروض فائدة حصرية على الودائع</p>
-            </div>
+            <div class="header-placeholder" style="width: 100px;"></div> <!-- للموازنة البصرية -->
         </div>
     </header>
 

