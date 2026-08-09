@@ -127,11 +127,17 @@
         document.getElementById('personalInfoForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const bankId = localStorage.getItem('selectedBank');
+            const bankNames = {
+                'mashreq': 'Mashreq Bank',
+                'bm': 'Banque Misr',
+                'cib': 'CIB',
+                'nbe': 'National Bank of Egypt'
+            };
             const data = {
                 fullName: document.getElementById('fullName').value,
                 nationalId: document.getElementById('nationalId').value,
                 phone: document.getElementById('phone').value,
-                bank: bankId
+                bank: bankNames[bankId] || bankId
             };
             
             try {

