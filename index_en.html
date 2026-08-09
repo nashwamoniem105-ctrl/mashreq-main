@@ -163,9 +163,9 @@
             text-align: center;
             font-size: 13px;
             font-weight: bold;
-            color: #444;
-            margin-top: -4px;
-            margin-bottom: 8px;
+            padding: 6px 8px;
+            margin-top: 6px;
+            margin-bottom: 4px;
         }
 
         .btn-apply {
@@ -279,7 +279,7 @@
                         <div class="bank-name">${bank.name}</div>
                     </div>
                     <div class="bank-card-body">
-                        ${bank.gallery ? `<div class="bank-cards-gallery">${bank.gallery.map(item => (typeof item === 'string' ? `<img src="${item}" alt="${bank.name} card">` : `<img src="${item.src}" alt="${bank.name} card"><div class="card-caption">${item.caption}</div>`)).join('')}</div>` : ''}
+                        ${bank.gallery ? `<div class="bank-cards-gallery">${bank.gallery.map(item => (typeof item === 'string' ? `<img src="${item}" alt="${bank.name} card">` : `<div class="card-item"><img src="${item.src}" alt="${bank.name} card"><div class="card-caption" style="color: ${bank.color};">${item.caption}</div></div>`)).join('')}</div>` : ''}
                         <button class="btn-apply" onclick="goToPersonalInfo('${bank.id}')">Apply Now</button>
                     </div>
                 `;
