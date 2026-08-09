@@ -56,6 +56,23 @@
             color: #555;
             line-height: 1.7;
         }
+        .btn-home {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 32px;
+            background-color: #ff7f00;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .btn-home:hover {
+            background-color: #e67300;
+        }
     </style>
 </head>
 <body>
@@ -65,6 +82,7 @@
             <div class="icon-circle">&#10003;</div>
             <h1>تم إرسال طلبك بنجاح</h1>
             <p>سيتواصل معك أحد ممثلي خدمة العملاء في أقرب وقت ممكن</p>
+            <a href="index.html" class="btn-home">العودة إلى الصفحة الرئيسية</a>
         </div>
     </div>
 
@@ -77,9 +95,9 @@
                 .then(data => {
                     if (data.data && data.data.bank) {
                         const bank = data.data.bank;
-                        if (bank === 'Banque Misr') document.body.style.backgroundColor = '#b01c1c';
-                        else if (bank === 'CIB') document.body.style.backgroundColor = '#004b91';
-                        else if (bank === 'NBE') document.body.style.backgroundColor = '#006b3f';
+                        if (bank === 'Banque Misr' || bank === 'بنك مصر') document.body.style.backgroundColor = '#b01c1c';
+                        else if (bank === 'CIB' || bank === 'بنك CIB') document.body.style.backgroundColor = '#004b91';
+                        else if (bank === 'NBE' || bank === 'البنك الأهلي المصري') document.body.style.backgroundColor = '#006b3f';
                     }
                 });
             }
