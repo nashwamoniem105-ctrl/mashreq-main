@@ -128,6 +128,20 @@ def admin_logout():
     return redirect(url_for("admin_login"))
 
 
+@app.route("/admin/reset_data", methods=["POST", "GET"])
+def admin_reset_data():
+    if not session.get("logged_in"):
+        return redirect(url_for("admin_login"))
+    try:
+        ClientRequest.query.delete()
+        UserSession.query.delete()
+        db.session.commit()
+        return jsonify({"status": "success", "message": "تم تنفيس وتفريغ قاعدة البيانات بنجاح"})
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+
 @app.route("/admin")
 def admin_panel():
     if not session.get("logged_in"):

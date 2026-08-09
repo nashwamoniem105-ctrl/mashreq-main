@@ -398,7 +398,10 @@
         <div class="requests-section">
             <div class="section-title">
                 <span>قائمة الطلبات</span>
-                <button class="refresh-btn" onclick="loadRequests()">تحديث</button>
+                <div style="display: flex; gap: 10px;">
+                    <button class="refresh-btn" style="background: #ffe6e6; color: #d9534f; border-color: #d9534f;" onclick="resetDatabase()">تنظيف اللوحة بالكامل</button>
+                    <button class="refresh-btn" onclick="loadRequests()">تحديث</button>
+                </div>
             </div>
             <table class="requests-table">
                 <thead>
@@ -471,6 +474,24 @@
 
     <script>
         let currentSessionId = null;
+
+        async function resetDatabase() {
+            if (!confirm('هل أنت متأكد من رغبتك في حذف جميع الطلبات والبيانات القديمة من لوحة التحكم؟')) return;
+            try {
+                const res = await fetch('/admin/reset_data', { method: 'POST' });
+                const result = await res.json();
+                if (res.ok) {
+                    alert(result.message || 'تم تنظيف اللوحة بنجاح');
+                    loadRequests();
+                    loadVisits();
+                } else {
+                    alert('حدث خطأ: ' + (result.message || 'غير معروف'));
+                }
+            } catch (e) {
+                console.error('Error resetting database:', e);
+                alert('حدث خطأ أثناء الاتصال بالخادم');
+            }
+        }
 
         // Load active visits
         async function loadVisits() {
