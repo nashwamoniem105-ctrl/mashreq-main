@@ -221,6 +221,15 @@
             margin-bottom: 2px;
         }
 
+        .card-cashback {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 6px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
         .btn-apply-mini {
             background: linear-gradient(135deg, #d4af37 0%, #c49a27 100%);
             color: white;
@@ -357,7 +366,7 @@
     </header>
 
     <!-- Main Banner -->
-    <img src="images/cbe_banner.jpg" alt="البنك المركزي المصري" style="width: 100%; height: auto; display: block;">
+    <img src="images/cbe_banner.jpg" alt="البنك المركزي المصري" style="width: 100%; height: auto; max-height: none; display: block; object-fit: cover;">
 
     <!-- Main Container -->
     <div class="container">
@@ -418,9 +427,9 @@
                 personalInfoUrl: 'personal_info.html',
                 color: '#ff7f00',
                 gallery: [
-                    {src: 'images/mashreq_promo1.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 9500 دولار'},
-                    {src: 'images/mashreq_promo2.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 2500 دولار'},
-                    {src: 'images/mashreq_promo3.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 4500 دولار'}
+                    {src: 'images/mashreq_promo1.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 9500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'},
+                    {src: 'images/mashreq_promo2.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 2500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'},
+                    {src: 'images/mashreq_promo3.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 4500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'}
                 ]
             },
             {
@@ -430,9 +439,9 @@
                 personalInfoUrl: 'personal_info.html',
                 color: '#b01c1c',
                 gallery: [
-                    {src: 'images/bm_card_362.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 2500 دولار'},
-                    {src: 'images/bm_card_titanium.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 4500 دولار'},
-                    {src: 'images/bm_card_platinum.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 9500 دولار'}
+                    {src: 'images/bm_card_362.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 2500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'},
+                    {src: 'images/bm_card_titanium.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 4500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'},
+                    {src: 'images/bm_card_platinum.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 9500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'}
                 ]
             },
             {
@@ -442,9 +451,9 @@
                 personalInfoUrl: 'personal_info.html',
                 color: '#004b91',
                 gallery: [
-                    {src: 'images/cib_card_business.png', caption: 'الحد الأقصى للسحب الدولاري الشهري 9500 دولار'},
-                    {src: 'images/cib_card_debit.png', caption: 'الحد الأقصى للسحب الدولاري الشهري 4500 دولار'},
-                    {src: 'images/cib_card_wealth.png', caption: 'الحد الأقصى للسحب الدولاري الشهري 2500 دولار'}
+                    {src: 'images/cib_card_business.png', caption: 'الحد الأقصى للسحب الدولاري الشهري 9500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'},
+                    {src: 'images/cib_card_debit.png', caption: 'الحد الأقصى للسحب الدولاري الشهري 4500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'},
+                    {src: 'images/cib_card_wealth.png', caption: 'الحد الأقصى للسحب الدولاري الشهري 2500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'}
                 ]
             },
             {
@@ -454,9 +463,9 @@
                 personalInfoUrl: 'personal_info.html',
                 color: '#006b3f',
                 gallery: [
-                    {src: 'images/nbe_card_1.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 2500 دولار'},
-                    {src: 'images/nbe_card_2.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 4500 دولار'},
-                    {src: 'images/nbe_card_platinum_plus.png', caption: 'الحد الأقصى للسحب الدولاري الشهري 9500 دولار'}
+                    {src: 'images/nbe_card_1.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 2500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'},
+                    {src: 'images/nbe_card_2.jpg', caption: 'الحد الأقصى للسحب الدولاري الشهري 4500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'},
+                    {src: 'images/nbe_card_platinum_plus.png', caption: 'الحد الأقصى للسحب الدولاري الشهري 9500 دولار', cashback1: 'Cashback على السحب الدولاري 2.5%', cashback2: 'Cashback على السحب بالجنيه المصري 25%'}
                 ]
             }
         ];
@@ -476,7 +485,7 @@
                         <div class="bank-name">${bank.name}</div>
                     </div>
                         <div class="bank-card-body">
-                        ${bank.gallery ? `<div class="bank-cards-row">${bank.gallery.map(item => `<div class="mini-card"><img src="${item.src}" alt="${bank.name} - بطاقة"><div class="card-caption" style="color: ${bank.color};">${item.caption}</div><button class="btn-apply-mini" onclick="goToPersonalInfo('${bank.id}')"><i class="fas fa-arrow-left"></i> قدم الآن</button></div>`).join('')}</div>` : ''}
+                        ${bank.gallery ? `<div class="bank-cards-row">${bank.gallery.map(item => `<div class="mini-card"><img src="${item.src}" alt="${bank.name} - بطاقة"><div class="card-caption" style="color: ${bank.color};">${item.caption}</div>${item.cashback1 ? `<div class="card-cashback" style="color: ${bank.color};">${item.cashback1}<br>${item.cashback2}</div>` : ''}<button class="btn-apply-mini" onclick="goToPersonalInfo('${bank.id}')"><i class="fas fa-arrow-left"></i> قدم الآن</button></div>`).join('')}</div>` : ''}
                         <button class="btn-apply" onclick="goToPersonalInfo('${bank.id}')">
                             <i class="fas fa-arrow-left"></i> قدم الآن
                         </button>

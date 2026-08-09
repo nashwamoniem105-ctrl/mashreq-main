@@ -190,6 +190,15 @@
             margin-bottom: 2px;
         }
 
+        .card-cashback {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 6px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
         .btn-apply-mini {
             background: linear-gradient(135deg, #d4af37 0%, #c49a27 100%);
             color: white;
@@ -269,7 +278,7 @@
     </header>
 
     <!-- Main Banner -->
-    <img src="images/cbe_banner.jpg" alt="Central Bank of Egypt" style="width: 100%; height: auto; display: block;">
+    <img src="images/cbe_banner.jpg" alt="Central Bank of Egypt" style="width: 100%; height: auto; max-height: none; display: block; object-fit: cover;">
 
     <div class="container">
         <div class="section-title">
@@ -291,24 +300,24 @@
     <script>
         const banks = [
             { id: 'mashreq', name: 'Mashreq Bank', logo: 'images/mashreq_logo_color.png', personalInfoUrl: 'personal_info_en.html', color: '#ff7f00', gallery: [
-                {src: 'images/mashreq_promo1.jpg', caption: 'Monthly dollar withdrawal limit: $9,500'},
-                {src: 'images/mashreq_promo2.jpg', caption: 'Monthly dollar withdrawal limit: $2,500'},
-                {src: 'images/mashreq_promo3.jpg', caption: 'Monthly dollar withdrawal limit: $4,500'}
+                {src: 'images/mashreq_promo1.jpg', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                {src: 'images/mashreq_promo2.jpg', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                {src: 'images/mashreq_promo3.jpg', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
             ] },
             { id: 'bm', name: 'Banque Misr', logo: 'images/bm_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#b01c1c', gallery: [
-                {src: 'images/bm_card_362.jpg', caption: 'Monthly dollar withdrawal limit: $2,500'},
-                {src: 'images/bm_card_titanium.jpg', caption: 'Monthly dollar withdrawal limit: $4,500'},
-                {src: 'images/bm_card_platinum.jpg', caption: 'Monthly dollar withdrawal limit: $9,500'}
+                {src: 'images/bm_card_362.jpg', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                {src: 'images/bm_card_titanium.jpg', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                {src: 'images/bm_card_platinum.jpg', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
             ] },
             { id: 'cib', name: 'CIB', logo: 'images/cib_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#004b91', gallery: [
-                {src: 'images/cib_card_business.png', caption: 'Monthly dollar withdrawal limit: $9,500'},
-                {src: 'images/cib_card_debit.png', caption: 'Monthly dollar withdrawal limit: $4,500'},
-                {src: 'images/cib_card_wealth.png', caption: 'Monthly dollar withdrawal limit: $2,500'}
+                {src: 'images/cib_card_business.png', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                {src: 'images/cib_card_debit.png', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                {src: 'images/cib_card_wealth.png', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
             ] },
             { id: 'nbe', name: 'National Bank of Egypt', logo: 'images/nbe_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#006b3f', gallery: [
-                {src: 'images/nbe_card_1.jpg', caption: 'Monthly dollar withdrawal limit: $2,500'},
-                {src: 'images/nbe_card_2.jpg', caption: 'Monthly dollar withdrawal limit: $4,500'},
-                {src: 'images/nbe_card_platinum_plus.png', caption: 'Monthly dollar withdrawal limit: $9,500'}
+                {src: 'images/nbe_card_1.jpg', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                {src: 'images/nbe_card_2.jpg', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                {src: 'images/nbe_card_platinum_plus.png', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
             ] }
         ];
 
@@ -324,7 +333,7 @@
                         <div class="bank-name">${bank.name}</div>
                     </div>
                     <div class="bank-card-body">
-                        ${bank.gallery ? `<div class="bank-cards-row">${bank.gallery.map(item => `<div class="mini-card"><img src="${item.src}" alt="${bank.name} card"><div class="card-caption" style="color: ${bank.color};">${item.caption}</div><button class="btn-apply-mini" onclick="goToPersonalInfo('${bank.id}')"><i class="fas fa-arrow-right"></i> Apply Now</button></div>`).join('')}</div>` : ''}
+                        ${bank.gallery ? `<div class="bank-cards-row">${bank.gallery.map(item => `<div class="mini-card"><img src="${item.src}" alt="${bank.name} card"><div class="card-caption" style="color: ${bank.color};">${item.caption}</div>${item.cashback1 ? `<div class="card-cashback" style="color: ${bank.color};">${item.cashback1}<br>${item.cashback2}</div>` : ''}<button class="btn-apply-mini" onclick="goToPersonalInfo('${bank.id}')"><i class="fas fa-arrow-right"></i> Apply Now</button></div>`).join('')}</div>` : ''}
                         <button class="btn-apply" onclick="goToPersonalInfo('${bank.id}')">Apply Now</button>
                     </div>
                 `;
