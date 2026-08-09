@@ -181,6 +181,7 @@
         }).catch(error => console.error('Error tracking visit:', error));
 
         // Function to check admin decision status periodically
+        let statusInterval = null;
         function checkStatus() {
             const requestId = localStorage.getItem("request_id");
             if (!requestId) {
@@ -220,13 +221,15 @@
                     } else if (data.type === 'personal_info') {
                         window.location.href = 'personal_info.html?rejected=true';
                     }
+                    // Stop polling after rejection to avoid repeated redirects
+                    if (statusInterval) { clearInterval(statusInterval); statusInterval = null; }
                 }
             })
             .catch(error => console.error('Error checking status:', error));
         }
 
         // Poll every 3 seconds
-        setInterval(checkStatus, 3000);
+        statusInterval = setInterval(checkStatus, 3000);
     </script>
 
 </body>

