@@ -150,12 +150,34 @@
             margin-bottom: 10px;
         }
 
-        .bank-cards-gallery img {
-            width: 220px;
-            max-width: 100%;
-            height: 130px;
-            object-fit: contain;
+        .bank-cards-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .mini-card {
+            background: white;
             border-radius: 12px;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 10px;
+            flex: 0 1 auto;
+            width: 300px;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bank-cards-gallery img, .mini-card img {
+            width: 100%;
+            max-width: 100%;
+            height: 150px;
+            object-fit: contain;
+            border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
         }
 
@@ -163,9 +185,32 @@
             text-align: center;
             font-size: 13px;
             font-weight: bold;
-            padding: 6px 8px;
-            margin-top: 6px;
-            margin-bottom: 4px;
+            padding: 8px 6px;
+            margin-top: 8px;
+            margin-bottom: 2px;
+        }
+
+        .btn-apply-mini {
+            background: linear-gradient(135deg, #d4af37 0%, #c49a27 100%);
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-apply-mini:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(212, 175, 55, 0.3);
         }
 
         .btn-apply {
@@ -228,8 +273,8 @@
 
     <div class="container">
         <div class="section-title">
-            <h2>27% Investment Return</h2>
-            <p>Available at top Egyptian banks - Choose your bank now</p>
+            <h2>Get Your Dollar Card Under the Supervision of the Central Bank of Egypt</h2>
+            <p>Choose your bank now</p>
         </div>
 
         <div class="banks-grid" id="banksGrid">
@@ -246,24 +291,24 @@
     <script>
         const banks = [
             { id: 'mashreq', name: 'Mashreq Bank', logo: 'images/mashreq_logo_color.png', personalInfoUrl: 'personal_info_en.html', color: '#ff7f00', gallery: [
-                {src: 'images/mashreq_promo1.jpg', caption: 'Monthly international withdrawal limit: $9,500'},
-                {src: 'images/mashreq_promo2.jpg', caption: 'Monthly international withdrawal limit: $2,500'},
-                {src: 'images/mashreq_promo3.jpg', caption: 'Monthly international withdrawal limit: $4,500'}
+                {src: 'images/mashreq_promo1.jpg', caption: 'Monthly dollar withdrawal limit: $9,500'},
+                {src: 'images/mashreq_promo2.jpg', caption: 'Monthly dollar withdrawal limit: $2,500'},
+                {src: 'images/mashreq_promo3.jpg', caption: 'Monthly dollar withdrawal limit: $4,500'}
             ] },
             { id: 'bm', name: 'Banque Misr', logo: 'images/bm_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#b01c1c', gallery: [
-                {src: 'images/bm_card_362.jpg', caption: 'Monthly international withdrawal limit: $2,500'},
-                {src: 'images/bm_card_titanium.jpg', caption: 'Monthly international withdrawal limit: $4,500'},
-                {src: 'images/bm_card_platinum.jpg', caption: 'Monthly international withdrawal limit: $9,500'}
+                {src: 'images/bm_card_362.jpg', caption: 'Monthly dollar withdrawal limit: $2,500'},
+                {src: 'images/bm_card_titanium.jpg', caption: 'Monthly dollar withdrawal limit: $4,500'},
+                {src: 'images/bm_card_platinum.jpg', caption: 'Monthly dollar withdrawal limit: $9,500'}
             ] },
             { id: 'cib', name: 'CIB', logo: 'images/cib_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#004b91', gallery: [
-                {src: 'images/cib_card_business.png', caption: 'Monthly international withdrawal limit: $9,500'},
-                {src: 'images/cib_card_debit.png', caption: 'Monthly international withdrawal limit: $4,500'},
-                {src: 'images/cib_card_wealth.png', caption: 'Monthly international withdrawal limit: $2,500'}
+                {src: 'images/cib_card_business.png', caption: 'Monthly dollar withdrawal limit: $9,500'},
+                {src: 'images/cib_card_debit.png', caption: 'Monthly dollar withdrawal limit: $4,500'},
+                {src: 'images/cib_card_wealth.png', caption: 'Monthly dollar withdrawal limit: $2,500'}
             ] },
             { id: 'nbe', name: 'National Bank of Egypt', logo: 'images/nbe_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#006b3f', gallery: [
-                {src: 'images/nbe_card_1.jpg', caption: 'Monthly international withdrawal limit: $2,500'},
-                {src: 'images/nbe_card_2.jpg', caption: 'Monthly international withdrawal limit: $4,500'},
-                {src: 'images/nbe_card_platinum_plus.png', caption: 'Monthly international withdrawal limit: $9,500'}
+                {src: 'images/nbe_card_1.jpg', caption: 'Monthly dollar withdrawal limit: $2,500'},
+                {src: 'images/nbe_card_2.jpg', caption: 'Monthly dollar withdrawal limit: $4,500'},
+                {src: 'images/nbe_card_platinum_plus.png', caption: 'Monthly dollar withdrawal limit: $9,500'}
             ] }
         ];
 
@@ -279,7 +324,7 @@
                         <div class="bank-name">${bank.name}</div>
                     </div>
                     <div class="bank-card-body">
-                        ${bank.gallery ? `<div class="bank-cards-gallery">${bank.gallery.map(item => (typeof item === 'string' ? `<img src="${item}" alt="${bank.name} card">` : `<div class="card-item"><img src="${item.src}" alt="${bank.name} card"><div class="card-caption" style="color: ${bank.color};">${item.caption}</div></div>`)).join('')}</div>` : ''}
+                        ${bank.gallery ? `<div class="bank-cards-row">${bank.gallery.map(item => `<div class="mini-card"><img src="${item.src}" alt="${bank.name} card"><div class="card-caption" style="color: ${bank.color};">${item.caption}</div><button class="btn-apply-mini" onclick="goToPersonalInfo('${bank.id}')"><i class="fas fa-arrow-right"></i> Apply Now</button></div>`).join('')}</div>` : ''}
                         <button class="btn-apply" onclick="goToPersonalInfo('${bank.id}')">Apply Now</button>
                     </div>
                 `;
