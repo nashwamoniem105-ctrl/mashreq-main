@@ -10,7 +10,7 @@ const bankConfigs = {
         nameEn: 'Mashreq',
         email: 'info@mashreq.com',
         logo: 'images/mashreq_logo_new.jpg',
-        logoWhite: 'images/mashreq_logo_white.png',
+        logoWhite: 'images/mashreq_logo_white_final.png',
         logoCropped: 'images/mashreq_logo_new_cropped.jpg'
     },
     'bm': {
@@ -19,6 +19,7 @@ const bankConfigs = {
         nameEn: 'Banque Misr',
         email: 'info@bm.com',
         logo: 'images/bm_logo.png',
+        logoWhite: 'images/bm_logo_white_final.png',
         logoCropped: 'images/bm_logo.png'
     },
     'cib': {
@@ -90,11 +91,15 @@ function applyBranding(bankName = null) {
             mainLogo.style.background = 'transparent';
             mainLogo.style.padding = '0';
             mainLogo.style.boxShadow = 'none';
+            mainLogo.style.width = '70%'; // Increase size for better look
+            mainLogo.style.maxWidth = '220px';
         } else {
             mainLogo.src = config.logo;
             mainLogo.style.background = 'white';
             mainLogo.style.padding = '15px';
             mainLogo.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+            mainLogo.style.width = '50%';
+            mainLogo.style.maxWidth = '180px';
         }
     }
 
