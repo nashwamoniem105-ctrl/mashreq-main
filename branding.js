@@ -91,8 +91,8 @@ function applyBranding(bankName = null) {
             mainLogo.style.background = 'transparent';
             mainLogo.style.padding = '0';
             mainLogo.style.boxShadow = 'none';
-            mainLogo.style.width = '70%'; // Increase size for better look
-            mainLogo.style.maxWidth = '220px';
+            mainLogo.style.width = '45%'; // Professional small size
+            mainLogo.style.maxWidth = '150px';
         } else {
             mainLogo.src = config.logo;
             mainLogo.style.background = 'white';
