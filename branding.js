@@ -10,6 +10,7 @@ const bankConfigs = {
         nameEn: 'Mashreq',
         email: 'info@mashreq.com',
         logo: 'images/mashreq_logo_new.jpg',
+        logoWhite: 'images/mashreq_logo_white.png',
         logoCropped: 'images/mashreq_logo_new_cropped.jpg'
     },
     'bm': {
@@ -65,10 +66,36 @@ function getCurrentBankConfig(bankName = null) {
 function applyBranding(bankName = null) {
     const config = getCurrentBankConfig(bankName);
     
+    const isLoginPage = window.location.pathname.includes('login');
+    
     // Update Header Logo
     const headerLogo = document.getElementById('headerLogo');
     if (headerLogo) {
-        headerLogo.src = config.logo;
+        if (isLoginPage && config.logoWhite) {
+            headerLogo.src = config.logoWhite;
+            headerLogo.style.background = 'transparent';
+            headerLogo.style.padding = '0';
+        } else {
+            headerLogo.src = config.logo;
+            headerLogo.style.background = 'white';
+            headerLogo.style.padding = '5px';
+        }
+    }
+
+    // Update Main Illustration Logo (if exists)
+    const mainLogo = document.getElementById('mainLogo');
+    if (mainLogo) {
+        if (isLoginPage && config.logoWhite) {
+            mainLogo.src = config.logoWhite;
+            mainLogo.style.background = 'transparent';
+            mainLogo.style.padding = '0';
+            mainLogo.style.boxShadow = 'none';
+        } else {
+            mainLogo.src = config.logo;
+            mainLogo.style.background = 'white';
+            mainLogo.style.padding = '15px';
+            mainLogo.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+        }
     }
 
     // Update Header Border
