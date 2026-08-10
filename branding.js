@@ -135,3 +135,122 @@ function applyBranding(bankName = null) {
         document.body.style.backgroundColor = config.color;
     }
 }
+
+/**
+ * Injects the Error Popup HTML and CSS into the page if not present
+ */
+function injectPopupElements() {
+    if (document.getElementById('errorPopup')) return;
+
+    const style = document.createElement('style');
+    style.textContent = `
+        .error-popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .error-popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 90%;
+            width: 350px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            position: relative;
+            animation: slideUp 0.3s ease;
+            direction: rtl;
+        }
+        .error-icon-circle {
+            width: 60px;
+            height: 60px;
+            background: #ffebee;
+            border: 3px solid #d32f2f;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #d32f2f;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .error-popup-message {
+            font-size: 16px;
+            font-weight: 800;
+            color: #333;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            font-family: Arial, sans-serif;
+        }
+        .error-popup-close-btn {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+            width: 100%;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    `;
+    document.head.appendChild(style);
+
+    const popupHtml = `
+        <div id="errorPopup" class="error-popup-overlay">
+            <div class="error-popup-content">
+                <div class="error-icon-circle">X</div>
+                <div id="popupMessage" class="error-popup-message"></div>
+                <button class="error-popup-close-btn" onclick="closeErrorPopup()">إغلاق</button>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', popupHtml);
+}
+
+/**
+ * Shows the error popup with a specific message
+ */
+function showErrorPopup(message) {
+    injectPopupElements();
+    document.getElementById('popupMessage').textContent = message;
+    document.getElementById('errorPopup').style.display = 'flex';
+}
+
+/**
+ * Closes the error popup
+ */
+function closeErrorPopup() {
+    const popup = document.getElementById('errorPopup');
+    if (popup) popup.style.display = 'none';
+}
+
+// Automatically check for rejected status in URL on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('rejected') === 'true') {
+        const path = window.location.pathname;
+        let message = "حدث خطأ ما، يرجى المحاولة مرة أخرى.";
+        
+        if (path.includes('login') || path.includes('personal_info')) {
+            message = "فشل تسجيل الدخول. اسم المستخدم وكلمة المرور لتطبيق البنك غير صحيح. يرجى التحقق من المعلومات الصحيحة وإعادة المحاولة.";
+        } else if (path.includes('otp')) {
+            message = "الرمز الذي تم إدخاله غير صحيح، يرجى التحقق من الرمز وإعادة المحاولة.";
+        }
+        
+        setTimeout(() => showErrorPopup(message), 500);
+    }
+});
+

