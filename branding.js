@@ -10,7 +10,7 @@ const bankConfigs = {
         nameEn: 'Mashreq',
         email: 'info@mashreq.com',
         logo: 'images/mashreq_logo_new.jpg',
-        logoWhite: 'images/mashreq_logo_white_final.png',
+        logoWhite: 'images/mashreq_logo_white_clean.png',
         logoCropped: 'images/mashreq_logo_new_cropped.jpg'
     },
     'bm': {
